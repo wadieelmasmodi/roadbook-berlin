@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 192" width="1200" height="192" role="img" aria-label="Silhouette des neuf etapes du voyage, de Paris a Strasbourg">
+  <title>Paris - Berlin - Paris</title>
+  <rect x="0" y="0" width="1200" height="192" fill="#22252A"/>
+  <g fill="#C3C9D1">
+    <!-- PARIS -->
+    <polygon points="66,50 82,150 74,150 66,96 58,150 50,150"/>
+    <rect x="54" y="110" width="24" height="5"/><rect x="59" y="84" width="14" height="4"/>
+    <rect x="26" y="136" width="16" height="14"/><rect x="90" y="140" width="16" height="10"/>
+    <!-- COLOGNE -->
+    <rect x="175" y="118" width="48" height="32"/>
+    <rect x="179" y="84" width="12" height="34"/><polygon points="179,84 185,50 191,84"/>
+    <rect x="207" y="84" width="12" height="34"/><polygon points="207,84 213,50 219,84"/>
+    <polygon points="193,118 199,100 205,118"/>
+    <!-- GOSLAR : le chevalement du Rammelsberg -->
+    <rect x="292" y="118" width="38" height="32"/><rect x="299" y="104" width="24" height="14"/>
+    <rect x="336" y="74" width="8" height="76"/><rect x="358" y="74" width="8" height="76"/>
+    <rect x="332" y="68" width="38" height="7"/>
+    <circle cx="351" cy="53" r="13"/><rect x="347" y="53" width="8" height="16"/>
+    <rect x="344" y="96" width="14" height="6"/><rect x="344" y="124" width="14" height="6"/>
+    <polygon points="374,150 386,150 366,92 358,96"/>
+    <!-- MARIENBORN -->
+    <rect x="428" y="102" width="74" height="10"/>
+    <rect x="434" y="112" width="6" height="38"/><rect x="456" y="112" width="6" height="38"/>
+    <rect x="478" y="112" width="6" height="38"/><rect x="494" y="112" width="6" height="38"/>
+    <rect x="446" y="126" width="22" height="24"/>
+    <rect x="502" y="118" width="34" height="4"/><rect x="532" y="118" width="5" height="32"/>
+    <!-- BERLIN -->
+    <rect x="552" y="124" width="26" height="26"/>
+    <polygon points="595,150 601,150 600,72 596,72"/>
+    <circle cx="598" cy="76" r="13"/>
+    <rect x="597" y="34" width="2" height="30"/>
+    <polygon points="586,150 610,150 604,138 592,138"/>
+    <!-- DESSAU -->
+    <rect x="701" y="110" width="60" height="40"/>
+    <!-- NUREMBERG : la Kaiserburg et son donjon rond -->
+    <rect x="836" y="122" width="42" height="28"/>
+    <polygon points="833,122 857,102 881,122"/>
+    <rect x="846" y="134" width="10" height="16"/>
+    <rect x="878" y="78" width="22" height="72"/>
+    <rect x="874" y="72" width="30" height="7"/>
+    <polygon points="874,72 889,46 904,72"/>
+    <!-- SPIRE -->
+    <rect x="977" y="114" width="40" height="36"/>
+    <path d="M985,114 a12,12 0 0 1 24,0 z"/>
+    <rect x="963" y="104" width="12" height="46"/><polygon points="962,104 969,86 976,104"/>
+    <rect x="1019" y="104" width="12" height="46"/><polygon points="1018,104 1025,86 1032,104"/>
+    <!-- STRASBOURG -->
+    <rect x="1112" y="116" width="36" height="34"/>
+    <rect x="1124" y="76" width="14" height="40"/>
+    <polygon points="1123,76 1131,42 1139,76"/>
+  </g>
+  <g stroke="#22252A" stroke-width="2" fill="none" opacity=".85">
+    <line x1="701" y1="123" x2="761" y2="123"/><line x1="701" y1="136" x2="761" y2="136"/>
+    <line x1="716" y1="110" x2="716" y2="150"/><line x1="731" y1="110" x2="731" y2="150"/>
+    <line x1="746" y1="110" x2="746" y2="150"/>
+  </g>
+  <line x1="20" y1="150" x2="664" y2="150" stroke="#F0654A" stroke-width="3" stroke-dasharray="13 8"/>
+  <line x1="664" y1="150" x2="1180" y2="150" stroke="#7FA0F5" stroke-width="3" stroke-dasharray="13 8"/>
+  <g fill="#F0654A">
+    <path d="M116,140 l4,-7 h14 l4,7 z"/><rect x="112" y="139" width="30" height="8"/>
+    <circle cx="120" cy="147" r="3.5"/><circle cx="134" cy="147" r="3.5"/>
+  </g>
+  <g text-anchor="middle" fill="#8F959D" font-family="ui-monospace, 'Cascadia Mono', Consolas, 'SF Mono', Menlo, monospace" font-size="13" letter-spacing="1.56">
+    <text x="66" y="180">PARIS</text><text x="199" y="180">COLOGNE</text>
+    <text x="339" y="180">GOSLAR</text><text x="465" y="180">MARIENBORN</text>
+    <text x="598" y="180">BERLIN</text><text x="731" y="180">DESSAU</text>
+    <text x="868" y="180">NUREMBERG</text><text x="997" y="180">SPIRE</text>
+    <text x="1130" y="180">STRASBOURG</text>
+  </g>
+</svg>

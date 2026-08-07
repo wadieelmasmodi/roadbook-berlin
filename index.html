@@ -347,7 +347,7 @@ hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
 <footer class="foot">
   <div class="wrap">
     <p><b>Paris → Berlin → Paris</b> · 9 au 18 août 2026 · ≈ 2 600 km<br>
-    Fonds de carte © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · CARTO. Photos Wikimedia Commons.<br>
+    Fonds de carte © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · CARTO. Photos Wikimedia Commons, sauf les hôtels : leurs propres visuels, crédités sous chaque image.<br>
     Zones environnementales, horaires et jours de fermeture : à revérifier avant de partir.</p>
   </div>
 </footer>
@@ -538,17 +538,25 @@ var PHOTOS = {
   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Kongresshalle_Reichsparteitagsgelaende.jpg/960px-Kongresshalle_Reichsparteitagsgelaende.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "from": "de:Kongresshalle (Nürnberg)"
  },
- "zeppelin": {
-  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Zeppelin_Feld_%28Zeppelin_Field%29.jpg/960px-Zeppelin_Feld_%28Zeppelin_Field%29.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-  "from": "de:Zeppelintribüne"
+ "rubyella": {
+  "url": "img/ruby-ella.jpg",
+  "from": "booking.com"
  },
- "neustadt": {
-  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Palais_Rhin_Strasbourg_6.jpg/960px-Palais_Rhin_Strasbourg_6.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-  "from": "de:Neustadt (Straßburg)"
+ "gategarden": {
+  "url": "img/gate-garden.jpg",
+  "from": "thegate.berlin"
  },
- "henkersteg": {
-  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Henkersteg_in_N%C3%BCrnberg.JPG/960px-Henkersteg_in_N%C3%BCrnberg.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-  "from": "de:Henkersteg"
+ "gwuni": {
+  "url": "img/gwuni-mopera.jpg",
+  "from": "gwuni-mopera.de"
+ },
+ "parkplaza": {
+  "url": "img/park-plaza.jpg",
+  "from": "arenahotels.com"
+ },
+ "contades": {
+  "url": "img/regent-contades.jpg",
+  "from": "regent-contades.com"
  },
  "nuernbergburg": {
   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/N%C3%BCrnberg_Burg_ArM.jpg/960px-N%C3%BCrnberg_Burg_ArM.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
@@ -666,10 +674,6 @@ var PHOTOS = {
   "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/LazurteguiPonfe.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
   "from": "de:Fahrradverleihsystem"
  },
- "koeln": {
-  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Cologne_Montage_2016.png/960px-Cologne_Montage_2016.png?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-  "from": "fr:Cologne"
- },
  "goslarnuit": {
   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Goslar_asv2022-06_img35_GrHeiligesKreuz.jpg/960px-Goslar_asv2022-06_img35_GrHeiligesKreuz.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "from": "de:Großes Heiliges Kreuz"
@@ -693,10 +697,6 @@ var PHOTOS = {
  "autobahn2": {
   "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Nordpol.JPG/960px-Nordpol.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
   "from": "de:Autobahndreieck"
- },
- "berlin": {
-  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Alexanderplatz_in_Berlin_-_Panorama.jpg/960px-Alexanderplatz_in_Berlin_-_Panorama.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-  "from": "de:Alexanderplatz"
  }
 };
 var DAYS = [
@@ -706,7 +706,7 @@ var DAYS = [
  s:[
   {t:"07:15",k:"route",n:"Départ de Paris",p:"autoroute",d:"A4, Reims, les Ardennes, la Meuse, Liège, Aix-la-Chapelle. Une seule pause à mi-parcours.",u:"5 h 10 + pause"},
   {t:"12:45",k:"route",n:"P+R Weiden West, on laisse la voiture",p:"parkride",d:"685 places, à la sortie même de l'A4 : vous n'entrez jamais dans la zone environnementale. Puis <b>tram 1 → Neumarkt, 26 min</b>, ou S12/S19 → Hauptbahnhof, 15 min.",u:"40 min porte-à-porte",a:"P+R Weiden West, Aachener Straße 1420, 50859 Köln",ll:[50.9345,6.8385]},
-  {t:"13:45",k:"dodo",n:"Ruby Ella, on pose les bagages",p:"koeln",d:"<b>Tram 1 jusqu'à Rudolfplatz</b>, l'hôtel est à deux minutes sur le Ring. Vous êtes en plein <b>Belgisches Viertel</b> : le Päffgen est à 300 m, Brüsseler Platz à 500 m, et vous rentrerez à pied ce soir. On ne remonte plus dans la voiture jusqu'à demain matin.",a:"Ruby Ella Hotel Cologne, Hohenzollernring 79-83, 50672 Köln",ll:[50.9416,6.9395]},
+  {t:"13:45",k:"dodo",n:"Ruby Ella, on pose les bagages",p:"rubyella",d:"<b>Tram 1 jusqu'à Rudolfplatz</b>, l'hôtel est à deux minutes sur le Ring. Vous êtes en plein <b>Belgisches Viertel</b> : le Päffgen est à 300 m, Brüsseler Platz à 500 m, et vous rentrerez à pied ce soir. On ne remonte plus dans la voiture jusqu'à demain matin.",a:"Ruby Ella Hotel Cologne, Hohenzollernring 79-83, 50672 Köln",ll:[50.9416,6.9395]},
   {t:"14:30",k:"visite",n:"Le Dom",d:"632 ans de chantier pour la plus haute façade d'église du monde. On entre, on lève la tête. <b>Ne montez pas les 533 marches</b> — vous avez toute l'après-midi devant vous.",u:"1 h",p:"dom",a:"Kölner Dom, Domkloster 4, Köln",ll:[50.9413,6.9583]},
   {t:"15:40",k:"visite",n:"Le pont Hohenzollern",d:"Un million de cadenas sur le grillage, les trains qui grondent au-dessus de l'eau, la cathédrale dans le dos. Traversez-le jusqu'à la rive droite pour la vue.",u:"30 min",p:"hohenzollern",a:"Hohenzollernbrücke, Köln",ll:[50.9410,6.9660]},
   {t:"16:15",k:"visite",n:"Rheinauhafen & les Kranhäuser",d:"L'ancien port fluvial, et trois immeubles en forme de <b>grues portuaires renversées</b> posés au bord du Rhin. On y descend le long de l'eau depuis la vieille ville.",u:"45 min",p:"rheinauhafen",a:"Rheinauhafen, Köln",ll:[50.9265,6.9645]},
@@ -739,7 +739,7 @@ var DAYS = [
   {t:"10:45",k:"mur",n:"Checkpoint Alpha · Marienborn",d:"<b>Le plus grand poste-frontière de la RDA, laissé tel quel.</b> Les guérites, les couloirs de contrôle, les fosses depuis lesquelles on inspectait le dessous des voitures, le hangar où l'on démontait les véhicules suspects. Un million de personnes par an passaient ici. Entrée libre, et c'est le lieu le plus fort du voyage sur la division allemande.",u:"1 h 15",p:"marienborn",a:"Gedenkstätte Deutsche Teilung Marienborn, An der Bundesautobahn 2, Marienborn",ll:[52.2131,11.0333]},
   {t:"12:00",k:"route",n:"Marienborn → Berlin",p:"autobahn2",d:"175 km par l'A2 puis l'A10 et l'A115. Déjeuner rapide sur l'aire. Vous contournez la zone environnementale par l'ouest.",u:"2 h"},
   {t:"14:15",k:"route",n:"P+R Olympiastadion, on gare pour 4 jours",p:"parkride",d:"Ouvert 24 h/24, gratuit hors jour de match, largement à l'ouest du ring S-Bahn qui délimite la zone. Puis <b>S3/S9 → Hauptbahnhof 15 min</b>, ou U2 → Mitte 25 min. Vérifiez qu'il n'y a pas de match du Hertha pendant vos quatre nuits.",u:"35 min porte-à-porte",a:"P+R Olympiastadion, Trakehner Allee 6, 14053 Berlin",ll:[52.5120,13.2410]},
-  {t:"15:15",k:"dodo",n:"The GATE GARDEN, Invalidenstraße",p:"berlin",d:"S3/S9 jusqu'à Friedrichstraße puis U6 jusqu'à Naturkundemuseum, l'hôtel est à 400 m. Emplacement idéal pour ce voyage : <b>le mémorial du Mur de Bernauer Straße est à 600 m</b>, vous y serez demain matin à pied. Le temps de poser les valises et d'acheter le titre de transport zones AB.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
+  {t:"15:15",k:"dodo",n:"The GATE GARDEN, Invalidenstraße",p:"gategarden",d:"S3/S9 jusqu'à Friedrichstraße puis U6 jusqu'à Naturkundemuseum, l'hôtel est à 400 m. Emplacement idéal pour ce voyage : <b>le mémorial du Mur de Bernauer Straße est à 600 m</b>, vous y serez demain matin à pied. Le temps de poser les valises et d'acheter le titre de transport zones AB.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
   {t:"16:30",k:"mur",n:"Mauerpark",d:"L'ancienne bande de la mort transformée en parc. Le <b>mur d'origine sert aujourd'hui de mur de graffitis</b>, repeint en permanence par qui veut. Montez sur la butte : c'est le spot de fin de journée des Berlinois, guitares comprises. Prenez votre temps, il n'y a rien après.",u:"2 h",p:"mauerpark",a:"Mauerpark, Gleimstraße 55, Berlin",ll:[52.5410,13.4020]},
   {t:"18:45",k:"art",n:"La Kulturbrauerei",d:"Six hectares de <b>brasserie néogothique en brique rouge de 1891</b>, sauvée de la démolition et devenue un village culturel : salles de concert, cinéma, cours pavées où l'on traîne. C'est aussi d'ici que vous partirez à vélo après-demain. Dix minutes à pied du Mauerpark.",u:"45 min",p:"kulturbrauerei",a:"Kulturbrauerei, Schönhauser Allee 36, Berlin",ll:[52.5388,13.4123]},
   {t:"19:45",k:"table",n:"Dîner · Prater Garten",d:"La plus vieille brasserie en plein air de Berlin, 1837, sous les marronniers, juste à côté de la Kulturbrauerei. Longues tables communes, bière au litre, saucisses grillées, et il fait encore jour jusqu'à 21 h. Le meilleur atterrissage possible pour un premier soir.",u:"2 h",p:"prater",a:"Prater Garten, Kastanienallee 7-9, Berlin",ll:[52.5390,13.4110]}
@@ -757,7 +757,7 @@ var DAYS = [
   {t:"14:45",k:"mur",n:"Potsdamer Platz",d:"Des pans de Mur debout au milieu des tours de verre, et la <b>double rangée de pavés</b> qui trace son parcours dans toute la ville. Une fois que vous l'avez repérée, vous la verrez partout.",u:"25 min",p:"potsdamerplatz",a:"Potsdamer Platz, Berlin",ll:[52.5096,13.3760]},
   {t:"15:15",k:"mur",n:"Topographie de la Terreur",d:"Sur les caves déblayées du siège de la Gestapo et de la SS, le long du <b>plus long pan de Mur du centre-ville</b>. Tout est en plein air, tout est gratuit, et c'est implacable.",u:"1 h",p:"topographie",a:"Topographie des Terrors, Niederkirchnerstraße 8, Berlin",ll:[52.5065,13.3833]},
   {t:"16:15",k:"mur",n:"Checkpoint Charlie",d:"Le poste des Alliés, où chars soviétiques et américains se sont fait face canon contre canon en octobre 1961. Aujourd'hui c'est une baraque à selfies : <b>quinze minutes, la photo, et on file</b>. Il est à 300 m de la Topographie.",u:"15 min",p:"charlie",a:"Checkpoint Charlie, Friedrichstraße 43-45, Berlin",ll:[52.5075,13.3903]},
-  {t:"16:45",k:"dodo",n:"Pause à l'hôtel",p:"berlin",d:"Deux heures, vraiment. Vous avez fait 6 km et vous ne dînerez pas avant 21 h. Prenez les lunettes d'éclipse en repartant.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
+  {t:"16:45",k:"dodo",n:"Pause à l'hôtel",p:"gategarden",d:"Deux heures, vraiment. Vous avez fait 6 km et vous ne dînerez pas avant 21 h. Prenez les lunettes d'éclipse en repartant.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
   {t:"18:45",k:"visite",n:"Coupole du Reichstag · l'éclipse",d:"On monte en spirale au-dessus de l'hémicycle : <b>le peuple littéralement au-dessus de ses députés</b>, c'est l'idée de Foster. En place avant 19 h 16, quand la Lune mord le disque. À <b>20 h 08, 85 % du Soleil a disparu</b> : la lumière devient métallique et la température tombe. Tout se joue plein ouest, au-dessus du Tiergarten.",u:"2 h 15",p:"reichstag",a:"Reichstagsgebäude, Platz der Republik 1, Berlin",ll:[52.5186,13.3761]},
   {t:"21:00",k:"table",n:"Dîner · Zur letzten Instanz",d:"1621, la plus vieille auberge de Berlin, à vingt minutes en U-Bahn. Napoléon et Beethoven y ont mangé, le poêle en faïence est d'origine, les bancs sont durs et la cuisine berlinoise assumée. La cuisine tourne tard — un dîner à 21 h n'a rien d'exotique ici. Réservez.",u:"2 h",p:"letzteinstanz",a:"Zur letzten Instanz, Waisenstraße 14-16, Berlin",ll:[52.5171,13.4136]}
  ]},
@@ -772,7 +772,7 @@ var DAYS = [
   {t:"12:50",k:"table",n:"Déjeuner · Burgermeister",d:"Un kiosque installé dans <b>d'anciennes toilettes publiques de 1900, sous le viaduc du métro</b>, à Schlesisches Tor. On mange debout, il y a la queue, et c'est une institution de Kreuzberg depuis vingt ans.",u:"45 min",p:"burgermeister",a:"Burgermeister Schlesisches Tor, Oberbaumstraße 8, Berlin",ll:[52.5008,13.4415]},
   {t:"13:45",k:"visite",n:"Le Landwehrkanal jusqu'à Tempelhof",d:"Le canal ombragé, Görlitzer Park, le Kreuzberg turc, puis l'ancien <b>aéroport nazi de Tempelhof</b>, celui du pont aérien de 1948 : fermé en 2008, rendu aux Berlinois, qui ont voté par référendum contre toute construction dessus. On roule <i>sur les pistes d'atterrissage</i>, entre les cerfs-volants et les barbecues. L'assistance électrique n'est pas du luxe : la boucle fait 12 km.",u:"2 h 45",p:"tempelhof",a:"Tempelhofer Feld, Columbiadamm 10, Berlin",ll:[52.4820,13.4030]},
   {t:"16:30",k:"route",n:"Retour des vélos",d:"8 km depuis Tempelhofer Feld, une demi-heure à l'électrique en remontant par Kreuzberg. Ils ferment à 19 h, vous avez de la marge. Ensuite tout se fait en U-Bahn.",u:"35 min",p:"fahrrad",a:"Berlin on Bike, Knaackstraße 97, 10435 Berlin",ll:[52.5390,13.4128]},
-  {t:"17:15",k:"dodo",n:"Pause à l'hôtel",p:"berlin",d:"Trois quarts d'heure au calme. La soirée va être longue.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
+  {t:"17:15",k:"dodo",n:"Pause à l'hôtel",p:"gategarden",d:"Trois quarts d'heure au calme. La soirée va être longue.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
   {t:"18:15",k:"table",n:"Dîner · Street Food Thursday",d:"U1 depuis Warschauer Straße, deux stations. Une fois par semaine, la halle de 1891 se remplit de <b>quarante stands venus du monde entier</b> — dumplings taïwanais, arepas, pastrami, glaces à l'azote — et de la moitié de Kreuzberg. C'est bruyant, bon marché, et c'est le meilleur dîner de votre séjour berlinois. Jusqu'à 22 h.",u:"2 h",p:"markthalle",a:"Markthalle Neun, Eisenbahnstraße 42-43, Berlin",ll:[52.5020,13.4310]},
   {t:"20:30",k:"soir",n:"Klunkerkranich",d:"Un bar-jardin sur <b>le toit d'un parking de centre commercial</b> à Neukölln. On monte par la rampe à voitures jusqu'au 5ᵉ, et on prend Berlin entière dans la figure au coucher du soleil, vers 20 h 45 à cette date. On finit là, tranquillement : la journée a fait 25 km de vélo.",u:"1 h 30",p:"klunkerkranich",a:"Klunkerkranich, Karl-Marx-Straße 66, Berlin",ll:[52.4790,13.4370]}
  ]},
@@ -786,7 +786,7 @@ var DAYS = [
   {t:"13:15",k:"table",n:"Déjeuner · Diener Tattersall",p:"savignyplatz",d:"Bistrot d'artistes depuis 1893, repris par un boxeur dans les années 50, murs tapissés de portraits dédicacés. Le Berlin-Ouest d'avant le Mur, intact.",u:"1 h 15",a:"Diener Tattersall, Grolmanstraße 47, Berlin",ll:[52.5055,13.3230]},
   {t:"14:45",k:"visite",n:"Église du Souvenir",d:"La tour éventrée par les bombes de 1943, laissée <b>exactement telle quelle</b>, et à côté la nef d'Egon Eiermann : un cube de 20 000 pavés de verre bleu. La lumière est irréelle, et c'est gratuit.",u:"25 min",p:"gedaechtnis",a:"Kaiser-Wilhelm-Gedächtniskirche, Breitscheidplatz, Berlin",ll:[52.5049,13.3350]},
   {t:"16:00",k:"visite",n:"Berliner Unterwelten",d:"Visite guidée des sous-sols : un <b>bunker de guerre resté meublé</b>, ou le parcours des tunnels d'évasion creusés sous le Mur. Une heure et demie sous terre.",u:"1 h 30",p:"unterwelten",a:"Berliner Unterwelten, Brunnenstraße 105, Berlin",ll:[52.5486,13.3886]},
-  {t:"17:45",k:"dodo",n:"Pause à l'hôtel",p:"berlin",d:"Demain on reprend la route.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
+  {t:"17:45",k:"dodo",n:"Pause à l'hôtel",p:"gategarden",d:"Demain on reprend la route.",a:"THE GATE GARDEN Hotel, Invalidenstraße 122, 10115 Berlin",ll:[52.5312,13.3861]},
   {t:"19:30",k:"table",n:"Dîner · Katz Orange",d:"Une cour cachée derrière une ancienne brasserie de Mitte, bougies, cuisine soignée et sans esbroufe. Le bon dîner du voyage. Réservez.",u:"2 h",p:"katzorange",a:"Katz Orange, Bergstraße 22, Berlin",ll:[52.5320,13.3930]},
   {t:"21:45",k:"soir",n:"Holzmarkt",d:"Un <b>village bricolé en planches au bord de la Spree</b> — bar de plage, boulangerie, scène, cabanes — bâti par les fondateurs de la Bar25 pour empêcher un promoteur d'avoir la parcelle. Les pieds dans le sable, dernier soir berlinois.",p:"holzmarkt",a:"Holzmarkt 25, Holzmarktstraße 25, Berlin",ll:[52.5115,13.4290]}
  ]},
@@ -803,7 +803,7 @@ var DAYS = [
   {t:"14:15",k:"art",n:"Bauhaus Dessau",d:"Le bâtiment de Gropius, 1926 : le mur-rideau de verre, les lettres verticales sur la façade, l'atelier, le réfectoire, l'escalier. <b>C'est ici que le XXᵉ siècle a décidé de quoi il aurait l'air.</b> On peut même dormir dans une chambre d'étudiant d'origine.",u:"1 h 15",p:"bauhaus",a:"Bauhaus Dessau, Gropiusallee 38, Dessau-Roßlau",ll:[51.8390,12.2280]},
   {t:"15:40",k:"art",n:"Les Maisons des Maîtres",d:"Cinq minutes à pied : les villas blanches où logeaient <b>Kandinsky, Klee, Feininger et Moholy-Nagy</b>, remeublées à l'identique, avec les couleurs de murs qu'ils avaient eux-mêmes choisies. Celle de Gropius, détruite en 1945, a été remplacée par un fantôme de béton translucide.",u:"50 min",p:"meisterhaeuser",a:"Meisterhäuser, Ebertallee 59-71, Dessau-Roßlau",ll:[51.8410,12.2240]},
   {t:"16:40",k:"route",n:"Dessau → P+R Leipziger Messe",p:"autobahn1",d:"80 km, sortie Messegelände de l'A14 : le parking est juste là. 1 200 places, gratuit, hors zone environnementale. Puis <b>S2/S5/S5X/S6 → Hauptbahnhof, 12 min</b>.",u:"1 h 20 + 25 min de transport",a:"P+R Leipziger Messe, Messe-Allee 1, 04356 Leipzig",ll:[51.3960,12.3980]},
-  {t:"18:30",k:"dodo",n:"Gwuni Mopera, Sternwartenstraße",p:"plagwitz",d:"S-Bahn jusqu'au Hauptbahnhof puis dix minutes à pied. Vous êtes dans le Seeburgviertel, à la lisière est du centre : <b>la Nikolaikirche, l'Auerbachs Keller et la Moritzbastei sont tous à moins de dix minutes à pied</b>. La voiture reste au P+R jusqu'à demain matin.",u:"20 min",a:"Gwuni Mopera, Sternwartenstraße 4, 04103 Leipzig",ll:[51.3350,12.3798]},
+  {t:"18:30",k:"dodo",n:"Gwuni Mopera, Sternwartenstraße",p:"gwuni",d:"S-Bahn jusqu'au Hauptbahnhof puis dix minutes à pied. Vous êtes dans le Seeburgviertel, à la lisière est du centre : <b>la Nikolaikirche, l'Auerbachs Keller et la Moritzbastei sont tous à moins de dix minutes à pied</b>. La voiture reste au P+R jusqu'à demain matin.",u:"20 min",a:"Gwuni Mopera, Sternwartenstraße 4, 04103 Leipzig",ll:[51.3350,12.3798]},
   {t:"18:55",k:"visite",n:"Nikolaikirche & Mädlerpassage",d:"Les « prières du lundi » d'octobre 1989 sont sorties d'ici et sont devenues 70 000 personnes dans la rue, sans un coup de feu. <b>La révolution pacifique commence à Leipzig, pas à Berlin.</b> Puis les passages couverts du centre, à deux pas.",u:"50 min",p:"nikolai",a:"Nikolaikirche, Nikolaikirchhof 3, Leipzig",ll:[51.3400,12.3790]},
   {t:"19:45",k:"table",n:"Dîner · Auerbachs Keller",d:"La taverne où Goethe fait boire Faust et Méphisto. Elle existe depuis 1525, au fond d'un passage couvert, et on frotte le pied de la statue de Méphisto en entrant. Réservez.",u:"1 h 45",p:"auerbach",a:"Auerbachs Keller, Grimmaische Straße 2-4, Leipzig",ll:[51.3395,12.3752]},
   {t:"21:30",k:"soir",n:"Moritzbastei",d:"Le dernier bastion des fortifications du XVIᵉ, déblayé des gravats par des étudiants bénévoles dans les années 70 — <b>dont une certaine Angela Merkel</b>. C'est aujourd'hui le plus grand club étudiant d'Europe : caves voûtées, concerts, cinéma en plein air sur la terrasse.",p:"moritzbastei",a:"Moritzbastei, Kurt-Masur-Platz 1, Leipzig",ll:[51.3378,12.3790]}
@@ -818,7 +818,7 @@ var DAYS = [
   {t:"12:45",k:"route",n:"Mödlareuth → Nuremberg",p:"bundesstrasse",d:"110 km par l'A9. Vous entrez dans la ville par l'ouest et vous vous garez au palais de justice.",u:"1 h 20"},
   {t:"14:15",k:"mur",n:"La salle 600",d:"Le procès s'est tenu ici du 20 novembre 1945 au 1<sup>er</sup> octobre 1946, et <b>c'est toujours une salle d'audience en activité</b>. On y a inventé <b>la traduction simultanée</b> — aucun procès n'avait eu besoin de quatre langues à la fois — et jugé pour la première fois des chefs d'État pour crimes contre l'humanité.",u:"1 h 30",p:"saal600",a:"Memorium Nürnberger Prozesse, Bärenschanzstraße 72, 90429 Nürnberg",ll:[49.4536,11.0530]},
   {t:"16:15",k:"visite",n:"Dokumentationszentrum",d:"Vingt minutes de voiture, et vous passez de la sentence à la mise en scène. Le centre est planté <b>dans l'aile inachevée de la Kongresshalle</b> : un colisée de granit prévu pour 50 000 personnes, jamais terminé. Le musée ferme à 18 h, mais la <b>Zeppelintribüne</b> juste à côté est en plein air : c'est là que 152 projecteurs de DCA formaient la « cathédrale de lumière ».",u:"2 h 15",p:"kongresshalle",a:"Dokumentationszentrum Reichsparteitagsgelände, Bayernstraße 110, 90478 Nürnberg",ll:[49.4325,11.1116]},
-  {t:"18:45",k:"dodo",n:"Park Plaza Nuremberg",p:"henkersteg",d:"Vingt minutes de route vers le nord-ouest. L'hôtel est <b>au pied de la gare et des remparts</b>, à dix minutes à pied de la vieille ville. On pose les valises et on souffle : la journée a été rude.",a:"Park Plaza Nuremberg, Bahnhofstraße 5, 90402 Nürnberg",ll:[49.4477,11.0833]},
+  {t:"18:45",k:"dodo",n:"Park Plaza Nuremberg",p:"parkplaza",d:"Vingt minutes de route vers le nord-ouest. L'hôtel est <b>au pied de la gare et des remparts</b>, à dix minutes à pied de la vieille ville. On pose les valises et on souffle : la journée a été rude.",a:"Park Plaza Nuremberg, Bahnhofstraße 5, 90402 Nürnberg",ll:[49.4477,11.0833]},
   {t:"20:00",k:"table",n:"Dîner · Bratwurst Röslein",d:"Une maison de 1432 sur le Rathausplatz, 600 couverts, <b>le plus grand restaurant de bratwurst du monde</b> — ouvert tous les jours jusqu'à minuit. Les Rostbratwürste de Nuremberg font 7 à 9 cm et pas un de plus : c'est protégé par une indication géographique européenne.",u:"1 h 30",p:"bratwurst",a:"Bratwurst Röslein, Rathausplatz 6, 90403 Nürnberg",ll:[49.4547,11.0771]},
   {t:"21:45",k:"soir",n:"La Kaiserburg et la Weißgerbergasse",d:"Nuremberg a été <b>détruite à 90 %</b> en janvier 1945 puis relevée pierre par pierre — sauf la Weißgerbergasse, rangée de colombages de tanneurs presque intacte. Montez à la Kaiserburg : vous avez vu Goslar que rien n'a touché, Berlin qu'on a rebâtie autrement, et ici une ville qu'on a recopiée.",p:"nuernbergburg",a:"Kaiserburg Nürnberg, Auf der Burg 13, 90403 Nürnberg",ll:[49.4577,11.0755]}
  ]},
@@ -834,7 +834,7 @@ var DAYS = [
   {t:"14:45",k:"visite",n:"Technik Museum Speyer",d:"Un <b>Boeing 747 posé sur pylônes</b> dans lequel on monte et dont on redescend par un toboggan de 25 m, un sous-marin qu'on traverse en rampant, et surtout la navette spatiale soviétique <b>Bourane</b> — l'un des deux seuls exemplaires jamais construits, échouée là après la chute de l'URSS. Parking gratuit devant, ouvert tous les jours.",u:"2 h",p:"technikspeyer",a:"Technik Museum Speyer, Am Technik Museum 1, 67346 Speyer",ll:[49.3175,8.4360]},
   {t:"16:55",k:"visite",n:"La cathédrale de Spire",d:"À dix minutes de là : la <b>plus grande église romane conservée au monde</b>, et la crypte impériale où reposent huit empereurs et rois. Une forêt de piliers, pas une once de décoration. C'est la puissance à l'état brut, et c'est gratuit.",u:"35 min",p:"speyerdom",a:"Speyerer Dom, Domplatz, 67346 Speyer",ll:[49.3175,8.4425]},
   {t:"17:35",k:"route",n:"Spire → Strasbourg",p:"autobahn2",d:"130 km par l'A5 puis le Rhin. Attention à la ZFE en entrant dans Strasbourg.",u:"1 h 25"},
-  {t:"19:15",k:"dodo",n:"Régent Contades, avenue de la Liberté",p:"neustadt",d:"L'hôtel est dans la <b>Neustadt, le quartier impérial allemand</b> bâti après 1871 — le même geste urbain qu'à Metz demain matin. Cathédrale à quinze minutes à pied par le pont.",u:"30 min",a:"Hôtel Régent Contades, 8 avenue de la Liberté, 67000 Strasbourg",ll:[48.5857,7.7583]},
+  {t:"19:15",k:"dodo",n:"Régent Contades, avenue de la Liberté",p:"contades",d:"L'hôtel est dans la <b>Neustadt, le quartier impérial allemand</b> bâti après 1871 — le même geste urbain qu'à Metz demain matin. Cathédrale à quinze minutes à pied par le pont.",u:"30 min",a:"Hôtel Régent Contades, 8 avenue de la Liberté, 67000 Strasbourg",ll:[48.5857,7.7583]},
   {t:"19:45",k:"table",n:"Dîner · Le Tire-Bouchon",d:"Winstub à deux pas de la cathédrale : baeckeoffe, presskopf, riesling au pichet. Le dernier dîner allemand-mais-français du voyage — et l'un des rares à servir le lundi soir. Réservez.",u:"1 h 45",p:"winstub",a:"Le Tire-Bouchon, 5 rue des Tailleurs de Pierre, 67000 Strasbourg",ll:[48.5805,7.7506]},
   {t:"21:30",k:"soir",n:"La Petite France déserte",d:"Vingt-cinq minutes de marche quand les cars sont partis : les canaux se vident, les colombages se reflètent dans l'eau noire, et il n'y a plus personne. Le plus joli souvenir du retour.",p:"petitefrance",a:"Petite France, Strasbourg",ll:[48.5800,7.7420]}
  ]},
