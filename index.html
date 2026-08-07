@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Roadbook 9-18 août : Paris - Berlin - Paris, heure par heure.">
+<title>Paris → Berlin → Paris · 9-18 août</title>
+
+<style>
+:root{
+  --paper:#E9E9E4; --surface:#F8F8F5; --surface2:#DFDFD8;
+  --ink:#15171B; --ink2:#565B62; --ink3:#7E848C;
+  --rule:#CFCFC6; --rule2:#BEBEB3;
+  --aller:#C33A24; --retour:#1D3F94; --art:#9A6B00;
+  --asphalt:#22252A; --onasphalt:#EFEFE9; --water:#9FB6C9;
+  --tilefx:none; --tilebg:#E4E2DA;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1114; --surface:#171A1F; --surface2:#1E2228;
+    --ink:#E9E9E4; --ink2:#A2A7AF; --ink3:#787D86;
+    --rule:#2A2F37; --rule2:#39404A;
+    --aller:#F0654A; --retour:#7FA0F5; --art:#E8B23B;
+    --asphalt:#1B1E23; --onasphalt:#E9E9E4; --water:#3C5468;
+    --tilefx:invert(1) hue-rotate(180deg) brightness(.82) contrast(.92); --tilebg:#20242A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1114; --surface:#171A1F; --surface2:#1E2228;
+  --ink:#E9E9E4; --ink2:#A2A7AF; --ink3:#787D86;
+  --rule:#2A2F37; --rule2:#39404A;
+  --aller:#F0654A; --retour:#7FA0F5; --art:#E8B23B;
+  --asphalt:#1B1E23; --onasphalt:#E9E9E4; --water:#3C5468;
+  --tilefx:invert(1) hue-rotate(180deg) brightness(.82) contrast(.92); --tilebg:#20242A;
+}
+:root{
+  --display:"Arial Black","Segoe UI Black","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --body:Charter,"Bitstream Charter","Iowan Old Style",Cambria,Georgia,serif;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:96px; -webkit-text-size-adjust:100%}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display); font-weight:900; letter-spacing:-.025em; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:inherit}
+button{font:inherit}
+img{display:block; max-width:100%}
+:focus-visible{outline:2.5px solid var(--aller); outline-offset:2px}
+.wrap{max-width:1240px; margin:0 auto; padding:0 16px}
+.eyebrow{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink3)}
+
+/* ---- HERO ---- */
+.hero{background:var(--asphalt); color:var(--onasphalt); padding:30px 0 0}
+.hero .k{font-family:var(--mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:#8F959D}
+.hero h1{font-size:clamp(31px,9.6vw,70px); line-height:.9; margin:11px 0 0; text-transform:uppercase; letter-spacing:-.04em}
+.hero h1 .go{color:#F0654A} .hero h1 .bk{color:#7FA0F5}
+.hero p.s{margin:13px 0 0; color:#B9BEC5; font-size:15.5px; max-width:50ch}
+.hero p.s b{color:var(--onasphalt)}
+.hstat{display:grid; grid-template-columns:repeat(2,1fr); margin-top:20px; border-top:1px solid #34383F}
+.hstat div{padding:10px 4px 12px; border-bottom:1px solid #34383F}
+.hstat div:nth-child(odd){border-right:1px solid #34383F; padding-right:12px}
+.hstat div:nth-child(even){padding-left:12px}
+.hstat b{display:block; font-family:var(--display); font-size:19px; letter-spacing:-.03em}
+.hstat span{font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#8F959D}
+.hroad{height:18px; position:relative; margin-top:10px}
+.hroad::after{content:""; position:absolute; left:0; right:0; top:7px; height:3px;
+  background:repeating-linear-gradient(to right,#5F656D 0 26px,transparent 26px 54px)}
+@media(min-width:700px){ .hstat{grid-template-columns:repeat(4,1fr)} .hstat div:nth-child(even){border-right:1px solid #34383F} }
+
+/* ---- MENU DES JOURS ---- */
+.nav{position:sticky; top:0; z-index:60; background:var(--paper); border-bottom:1px solid var(--rule)}
+.daymenu{display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:9px 12px}
+.daymenu::-webkit-scrollbar{display:none}
+.daymenu button{display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.05em; color:var(--ink2); border:1.5px solid var(--rule2); background:none;
+  padding:6px 10px; white-space:nowrap; cursor:pointer; line-height:1.3}
+.daymenu button b{font-family:var(--display); font-size:11px; letter-spacing:0}
+.daymenu button:hover{border-color:var(--ink); color:var(--ink)}
+.daymenu button.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.daymenu button.today{border-color:var(--aller); color:var(--aller)}
+.daymenu button.today::before{content:""; width:7px; height:7px; background:var(--aller); flex:none}
+.daymenu button.today.on{background:var(--aller); color:#fff; border-color:var(--aller)}
+.daymenu button.today.on::before{background:#fff}
+
+section{padding:36px 0 0}
+.shead{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.shead h2{font-size:clamp(22px,6vw,32px); text-transform:uppercase}
+hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
+.slede{max-width:62ch; color:var(--ink2); margin-top:12px; font-size:15.5px}
+
+/* ---- CARTE GENERALE ---- */
+.mapbox{margin-top:16px; background:var(--surface); border:1px solid var(--rule); padding:8px}
+.mapbox svg{display:block; width:100%; height:auto}
+.mn{cursor:pointer}
+.mn text{font-family:var(--mono); font-size:13px; fill:var(--ink)}
+.mn .sm{font-size:11px; fill:var(--ink3)}
+.mn:hover text{fill:var(--aller)}
+.geo{font-family:var(--mono); font-size:11px; fill:var(--ink3); opacity:.5; letter-spacing:.2em}
+.riv{font-family:var(--mono); font-size:9.5px; fill:var(--ink3); opacity:.7; letter-spacing:.12em}
+.legend{display:flex; flex-wrap:wrap; gap:6px 20px; margin-top:10px}
+.legend span{font-family:var(--mono); font-size:10.5px; color:var(--ink2); display:flex; align-items:center; gap:8px}
+.legend i{width:22px; border-top:4px solid; display:inline-block}
+
+/* ---- JOUR ---- */
+.day{margin-top:30px; scroll-margin-top:100px}
+.dhead{border-top:3px solid var(--ink); padding-top:11px}
+.dtop{display:flex; align-items:center; gap:9px; flex-wrap:wrap}
+.dnum{font-family:var(--display); font-size:12px; background:var(--aller); color:#fff; padding:4px 8px}
+.day.ret .dnum{background:var(--retour)}
+.day.stay .dnum{background:var(--ink)}
+.ddate{font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink)}
+.dtoday{font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+  background:var(--aller); color:#fff; padding:3px 7px}
+.dmeta{font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; color:var(--ink2); font-variant-numeric:tabular-nums}
+.dhead h3{font-size:clamp(21px,5.4vw,30px); text-transform:uppercase; margin-top:7px}
+.dhead h3 .ar{color:var(--aller)}
+.day.ret .dhead h3 .ar{color:var(--retour)}
+.dnote{margin-top:8px; color:var(--ink2); font-size:15px; max-width:62ch}
+.dresa{margin-top:10px; font-family:var(--mono); font-size:11px; line-height:1.65; color:var(--ink);
+  border-left:4px solid var(--aller); background:var(--surface2); padding:8px 11px}
+.gbtn{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
+  border:1.5px solid var(--rule2); color:var(--ink2); padding:8px 11px; background:none; cursor:pointer; margin-top:11px}
+.gbtn:hover{border-color:var(--ink); color:var(--ink)}
+.gbtn svg{width:13px; height:13px; flex:none}
+
+.dbody{display:grid; grid-template-columns:1fr; gap:18px; margin-top:14px}
+@media(min-width:960px){
+  .dbody{grid-template-columns:minmax(0,1fr) 430px; gap:30px; align-items:start}
+  .mapcol{position:sticky; top:100px; order:2}
+  .tl{order:1}
+}
+
+/* ---- CARTE DU JOUR ---- */
+.canvas{position:relative; width:100%; aspect-ratio:800/580; background:var(--tilebg);
+  border:1px solid var(--rule); overflow:hidden}
+.canvas .tiles{position:absolute; inset:0; filter:var(--tilefx)}
+.canvas .tiles img{position:absolute; border:0}
+.canvas svg{position:absolute; inset:0; width:100%; height:100%}
+.pin{cursor:pointer}
+.pin:hover circle.b,.pin.on circle.b{r:17}
+.mapcap{font-family:var(--mono); font-size:9.5px; color:var(--ink3); margin-top:6px; letter-spacing:.03em}
+.mapcap a{color:inherit}
+
+/* ---- TIMELINE ---- */
+.tl{list-style:none; margin:0; padding:0}
+.ev{display:grid; grid-template-columns:50px minmax(0,1fr); gap:11px; padding:12px 0; border-bottom:1px solid var(--rule)}
+.ev:last-child{border-bottom:0}
+.evt{font-family:var(--mono); font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; padding-top:2px; letter-spacing:-.02em}
+.evc{display:flex; gap:12px; min-width:0}
+.evfig{flex:0 0 104px; margin:0}
+.evfig img{width:104px; height:104px; object-fit:cover; background:var(--surface2)}
+.evfig figcaption{font-family:var(--mono); font-size:8px; color:var(--ink3); margin-top:3px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+@media(min-width:560px){ .evfig{flex-basis:150px} .evfig img{width:150px; height:120px} }
+.evb{min-width:0; flex:1}
+.evk{display:flex; align-items:center; gap:7px; flex-wrap:wrap}
+.badge{font-family:var(--mono); font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; padding:3px 6px; color:#fff; background:var(--ink3)}
+.k-mur .badge{background:var(--aller)} .k-art .badge{background:var(--art)}
+.k-soir .badge{background:var(--retour)} .k-table .badge{background:var(--ink)}
+.dur{font-family:var(--mono); font-size:10px; color:var(--ink3); letter-spacing:.05em}
+.evb h4{font-size:17px; margin-top:6px; line-height:1.18}
+.evb h4 .no{display:inline-block; font-family:var(--mono); font-size:11px; background:var(--ink3); color:var(--paper);
+  width:17px; height:17px; line-height:17px; text-align:center; margin-right:6px; vertical-align:2px}
+.k-mur h4 .no{background:var(--aller)} .k-art h4 .no{background:var(--art)}
+.k-soir h4 .no{background:var(--retour)} .k-table h4 .no{background:var(--ink)}
+.evd{font-size:14.6px; line-height:1.5; margin-top:7px; color:var(--ink2)}
+.evd b{color:var(--ink)}
+.evl{display:inline-flex; align-items:flex-start; gap:6px; font-family:var(--mono); font-size:10.5px;
+  color:var(--ink2); text-decoration:none; margin-top:9px; line-height:1.35}
+.evl:hover{color:var(--aller)}
+.evl svg{width:12px; height:12px; flex:none; margin-top:1px}
+.walk{font-family:var(--mono); font-size:9.5px; color:var(--ink3); margin-top:7px; letter-spacing:.03em}
+.ev.trip{padding:8px 0; border-bottom:1px dashed var(--rule)}
+.ev.trip .evb h4{font-family:var(--body); font-weight:700; font-size:14.5px; letter-spacing:0; margin:0}
+.ev.trip .evd{font-size:13.5px; margin-top:3px}
+.ev.on{background:var(--surface2)}
+.day.hide,#boucle.hide,#programme.hide{display:none}
+#programme{padding-top:0}
+
+.foot{margin-top:52px; background:var(--asphalt); color:#8F959D; padding:24px 0 32px}
+.foot p{font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; line-height:1.9}
+.foot b{color:var(--onasphalt)}
+.foot a{color:#B9BEC5}
+
+@media(prefers-reduced-motion:reduce){ *{animation-duration:.001ms!important; transition-duration:.001ms!important} html{scroll-behavior:auto} }
+@media print{ .nav,.gbtn{display:none} body{background:#fff} .day{break-inside:avoid} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="k">Roadbook · du 9 au 18 août 2026 · heure par heure</p>
+    <h1>Paris <span class="go">↗</span> Berlin <span class="bk">↘</span> Paris</h1>
+    <p class="s">Voiture <b>sans plaque environnementale</b> : les trois villes concernées ont chacune leur parking hors zone, avec l'adresse exacte et le temps de transport jusqu'au centre.</p>
+    <div class="hstat">
+      <div><b>2 650</b><span>km</span></div>
+      <div><b>28 h</b><span>de volant, sur 7 jours</span></div>
+      <div><b>4 nuits</b><span>à Berlin, sans voiture</span></div>
+      <div><b>3</b><span>zones à contourner</span></div>
+    </div>
+  </div>
+  <div class="hroad"></div>
+</header>
+
+<nav class="nav"><div class="daymenu" id="daymenu"></div></nav>
+
+<main class="wrap">
+
+<section id="boucle">
+  <div class="shead"><h2>La boucle</h2></div>
+  <hr class="rule">
+  <p class="slede">Rouge à l'aller par le Rhin et le Harz, bleu au retour par la Saxe et la Franconie. Les pointillés sont l'ancienne frontière interallemande. Touchez une ville pour ouvrir sa journée.</p>
+  <div class="mapbox">
+    <svg viewBox="0 0 1000 600" role="img" aria-label="Boucle Paris-Berlin-Paris">
+      <defs>
+        <marker id="arGo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--aller)"/></marker>
+        <marker id="arBk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--retour)"/></marker>
+      </defs>
+      <g stroke="currentColor" opacity=".07" stroke-width="1">
+        <line x1="20" y1="150" x2="980" y2="150"/><line x1="20" y1="300" x2="980" y2="300"/><line x1="20" y1="450" x2="980" y2="450"/>
+        <line x1="230" y1="20" x2="230" y2="580"/><line x1="500" y1="20" x2="500" y2="580"/><line x1="770" y1="20" x2="770" y2="580"/>
+      </g>
+      <g fill="none" stroke="var(--water)" opacity=".55" stroke-width="2.4" stroke-linecap="round">
+        <polyline points="499,565 544,510 557,449 541,382 487,336 446,289 435,262 419,199 376,148 357,139"/>
+        <polyline points="754,396 701,376 677,409 642,413 613,386 575,369 541,382"/>
+        <polyline points="987,248 926,183 898,143 815,110 796,63"/>
+      </g>
+      <text class="riv" x="466" y="352" transform="rotate(-52 466 352)">LE RHIN</text>
+      <text class="riv" x="636" y="404">LE MAIN</text>
+      <text class="riv" x="902" y="126" transform="rotate(-40 902 126)">L'ELBE</text>
+      <polyline fill="none" stroke="currentColor" opacity=".42" stroke-width="2.4" stroke-dasharray="3 7" stroke-linecap="round"
+        points="765,20 764,97 727,152 703,190 690,242 743,293 764,344 833,329 853,352"/>
+      <text class="riv" x="672" y="268" transform="rotate(-74 672 268)">RIDEAU DE FER 1949—1990</text>
+      <text class="geo" x="150" y="562">FRANCE</text>
+      <text class="geo" x="252" y="222">BELGIQUE</text>
+      <text class="geo" x="586" y="120">ALLEMAGNE</text>
+      <polyline fill="none" stroke="var(--aller)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arGo)"
+        points="60,528 197,477 253,412 265,322 323,301 364,283 435,262 507,251 640,214 776,154 766,99 949,64"/>
+      <polyline fill="none" stroke="var(--retour)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="14 9" marker-end="url(#arBk)"
+        points="962,72 900,110 865,147 876,211 833,329 754,396 677,409 555,470 552,509 499,565 468,543 371,495 180,505 68,527"/>
+      <g>
+        <g class="mn" data-go="j1" tabindex="0" role="link" aria-label="Paris"><circle cx="60" cy="528" r="20" fill="transparent"/><circle cx="60" cy="528" r="8" fill="var(--paper)" stroke="var(--ink)" stroke-width="3.5"/><text x="76" y="533">PARIS</text></g>
+        <g class="mn" data-go="j1" tabindex="0" role="link" aria-label="Cologne"><circle cx="435" cy="262" r="20" fill="transparent"/><circle cx="435" cy="262" r="8" fill="var(--aller)" stroke="var(--surface)" stroke-width="3"/><text x="450" y="258">COLOGNE</text><text class="sm" x="450" y="274">nuit 1</text></g>
+        <g class="mn" data-go="j2" tabindex="0" role="link" aria-label="Quedlinbourg"><circle cx="776" cy="154" r="20" fill="transparent"/><circle cx="776" cy="154" r="8" fill="var(--aller)" stroke="var(--surface)" stroke-width="3"/><text x="762" y="152" text-anchor="end">QUEDLINBOURG</text><text class="sm" x="762" y="168" text-anchor="end">nuit 2</text></g>
+        <g class="mn" data-go="j3" tabindex="0" role="link" aria-label="Marienborn"><circle cx="766" cy="99" r="18" fill="transparent"/><circle cx="766" cy="99" r="4.5" fill="var(--paper)" stroke="var(--aller)" stroke-width="3"/><text class="sm" x="754" y="96" text-anchor="end">Marienborn</text></g>
+        <g class="mn" data-go="j3" tabindex="0" role="link" aria-label="Berlin"><circle cx="959" cy="60" r="26" fill="transparent"/><circle cx="959" cy="60" r="15" fill="none" stroke="var(--ink)" stroke-width="1.5" opacity=".45"/><circle cx="959" cy="60" r="9.5" fill="var(--ink)" stroke="var(--surface)" stroke-width="3"/><text x="941" y="56" text-anchor="end" style="font-size:15px">BERLIN</text><text class="sm" x="941" y="72" text-anchor="end">4 nuits</text></g>
+        <g class="mn" data-go="j7" tabindex="0" role="link" aria-label="Dessau"><circle cx="865" cy="147" r="18" fill="transparent"/><circle cx="865" cy="147" r="4.5" fill="var(--paper)" stroke="var(--retour)" stroke-width="3"/><text class="sm" x="877" y="145">Dessau · Bauhaus</text></g>
+        <g class="mn" data-go="j7" tabindex="0" role="link" aria-label="Leipzig"><circle cx="876" cy="211" r="20" fill="transparent"/><circle cx="876" cy="211" r="8" fill="var(--retour)" stroke="var(--surface)" stroke-width="3"/><text x="891" y="208">LEIPZIG</text><text class="sm" x="891" y="224">nuit 7</text></g>
+        <g class="mn" data-go="j8" tabindex="0" role="link" aria-label="Mödlareuth"><circle cx="833" cy="329" r="18" fill="transparent"/><circle cx="833" cy="329" r="4.5" fill="var(--paper)" stroke="var(--retour)" stroke-width="3"/><text class="sm" x="845" y="332">Mödlareuth</text></g>
+        <g class="mn" data-go="j8" tabindex="0" role="link" aria-label="Bamberg"><circle cx="754" cy="396" r="20" fill="transparent"/><circle cx="754" cy="396" r="8" fill="var(--retour)" stroke="var(--surface)" stroke-width="3"/><text x="769" y="393">BAMBERG</text><text class="sm" x="769" y="409">nuit 8</text></g>
+        <g class="mn" data-go="j9" tabindex="0" role="link" aria-label="Wurtzbourg"><circle cx="677" cy="409" r="18" fill="transparent"/><circle cx="677" cy="409" r="4.5" fill="var(--paper)" stroke="var(--retour)" stroke-width="3"/><text class="sm" x="666" y="413" text-anchor="end">Wurtzbourg</text></g>
+        <g class="mn" data-go="j9" tabindex="0" role="link" aria-label="Spire"><circle cx="555" cy="470" r="18" fill="transparent"/><circle cx="555" cy="470" r="4.5" fill="var(--paper)" stroke="var(--retour)" stroke-width="3"/><text class="sm" x="566" y="464">Spire</text></g>
+        <g class="mn" data-go="j9" tabindex="0" role="link" aria-label="Strasbourg"><circle cx="499" cy="565" r="20" fill="transparent"/><circle cx="499" cy="565" r="8" fill="var(--retour)" stroke="var(--surface)" stroke-width="3"/><text x="514" y="562">STRASBOURG</text><text class="sm" x="514" y="578">nuit 9</text></g>
+        <g class="mn" data-go="j10" tabindex="0" role="link" aria-label="Metz"><circle cx="371" cy="495" r="18" fill="transparent"/><circle cx="371" cy="495" r="4.5" fill="var(--paper)" stroke="var(--retour)" stroke-width="3"/><text class="sm" x="371" y="484" text-anchor="middle">Metz</text></g>
+      </g>
+    </svg>
+  </div>
+  <div class="legend">
+    <span><i style="border-color:var(--aller)"></i> Aller · J1→J3</span>
+    <span><i style="border-color:var(--retour); border-top-style:dashed"></i> Retour · J7→J10</span>
+    <span><i style="border-color:currentColor; opacity:.42; border-top-style:dotted"></i> Rideau de fer</span>
+  </div>
+</section>
+
+<section id="programme"><div id="days"></div></section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Paris → Berlin → Paris</b> · 9 au 18 août 2026 · ≈ 2 650 km<br>
+    Fonds de carte © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · CARTO. Photos Wikimedia Commons.<br>
+    Zones environnementales, horaires et jours de fermeture : à revérifier avant de partir.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+var START="2026-08-09";
+var PHOTOS = {
+ "dom": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/K%C3%B6lner_Dom_nachts_2013.jpg/960px-K%C3%B6lner_Dom_nachts_2013.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Kölner Dom"
+ },
+ "ehrenfeld": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cologne_Ehrenfeld_Ehrenfeld.svg/960px-Cologne_Ehrenfeld_Ehrenfeld.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Ehrenfeld (Köln)"
+ },
+ "odonien": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Odo_Rumpf_auf_Ateliergel%C3%A4nde_%281698%29.jpg/960px-Odo_Rumpf_auf_Ateliergel%C3%A4nde_%281698%29.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Odo Rumpf"
+ },
+ "rheinauhafen": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Rheinauhafen_Koeln_Kranhaeuser.jpg/960px-Rheinauhafen_Koeln_Kranhaeuser.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Rheinauhafen"
+ },
+ "paeffgen": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Koelsch.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "from": "de:Kölsch (Bier)"
+ },
+ "quedlinburg": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/DE-ST_15-0-85-235_Quedlinburg_COA.svg/960px-DE-ST_15-0-85-235_Quedlinburg_COA.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Quedlinburg"
+ },
+ "staenderbau": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Quedlinburg_Klopstockhaus_%282094590393%29.jpg/960px-Quedlinburg_Klopstockhaus_%282094590393%29.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Klopstockhaus"
+ },
+ "stiftskirche": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Quedlinburg_asv2018-10_img03_Castle.jpg/960px-Quedlinburg_asv2018-10_img03_Castle.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Stiftskirche St. Servatius"
+ },
+ "luedde": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/DE-ST_15-0-85-235_Quedlinburg_COA.svg/960px-DE-ST_15-0-85-235_Quedlinburg_COA.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Quedlinburg"
+ },
+ "marienborn": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Helmstedt-Marienborn_ehemaliger_Grenzuebergang_Luftbild_%282007%29.JPG/960px-Helmstedt-Marienborn_ehemaliger_Grenzuebergang_Luftbild_%282007%29.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Grenzübergang Helmstedt/Marienborn"
+ },
+ "mauerpark": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Berlin_Mauerpark_2022.jpg/960px-Berlin_Mauerpark_2022.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Mauerpark"
+ },
+ "prater": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Pratergarten_Berlin_Kastanienallee.JPG/960px-Pratergarten_Berlin_Kastanienallee.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Prater (Berlin)"
+ },
+ "bernauer": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Berlin%2C_Bernauer_Stra%C3%9Fe%2C_%C3%9Cberblick_2014-07.jpg/960px-Berlin%2C_Bernauer_Stra%C3%9Fe%2C_%C3%9Cberblick_2014-07.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Gedenkstätte Berliner Mauer"
+ },
+ "traenenpalast": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Bundesarchiv_Bild_183-A0706-0010-001%2C_Berlin%2C_Bahnhof_Friedrichstra%C3%9Fe%2C_Glashalle%2C_Eingang.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "from": "de:Tränenpalast"
+ },
+ "brandenburger": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/BerlinBrandenburgerTor1985.jpg/960px-BerlinBrandenburgerTor1985.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Brandenburger Tor"
+ },
+ "holocaust": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Memorial_to_the_Murdered_Jews_of_Europeabove.jpg/960px-Memorial_to_the_Murdered_Jews_of_Europeabove.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Denkmal für die ermordeten Juden Europas"
+ },
+ "potsdamerplatz": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Berlin_-_Potsdamer_Platz_-_2016.jpg/960px-Berlin_-_Potsdamer_Platz_-_2016.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Potsdamer Platz"
+ },
+ "topographie": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Dokumentationszentrum_Topographie_des_Terrors.jpg/960px-Dokumentationszentrum_Topographie_des_Terrors.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Topographie des Terrors"
+ },
+ "charlie": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Checkpoint_Charlie1.jpg/960px-Checkpoint_Charlie1.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Checkpoint Charlie"
+ },
+ "reichstag": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Reichstagsgeb%C3%A4ude_von_Westen.jpg/960px-Reichstagsgeb%C3%A4ude_von_Westen.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Reichstagsgebäude"
+ },
+ "letzteinstanz": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Parochialkirchhof_Zur_letzten_Instanz_Berlin-Mitte.jpg/960px-Parochialkirchhof_Zur_letzten_Instanz_Berlin-Mitte.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Zur letzten Instanz"
+ },
+ "claerchens": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Au%C3%9Fenansicht_Cl%C3%A4rchens_Ballhaus.jpg/960px-Au%C3%9Fenansicht_Cl%C3%A4rchens_Ballhaus.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Clärchens Ballhaus"
+ },
+ "eastside": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Bundesarchiv_B_145_Bild-F088809-0038%2C_Berlin%2C_East_Side_Gallery.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "from": "de:East Side Gallery"
+ },
+ "raw": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/RAW_Berlin_Tor1.jpg/960px-RAW_Berlin_Tor1.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:RAW-Friedrichshain"
+ },
+ "tempelhof": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Aerial%2C_Berlin_%28_1090064%29.jpg/960px-Aerial%2C_Berlin_%28_1090064%29.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Tempelhofer Feld"
+ },
+ "klunkerkranich": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Neuk%C3%B6lln_Arcarden.jpg/960px-Neuk%C3%B6lln_Arcarden.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Neukölln Arcaden"
+ },
+ "oranienstrasse": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Berlin-kreuzberg_oranienstrasse_20051019_316.jpg/960px-Berlin-kreuzberg_oranienstrasse_20051019_316.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Oranienstraße"
+ },
+ "tresor": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Tresor_-_Berlin.jpg/960px-Tresor_-_Berlin.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Tresor (Club)"
+ },
+ "teufelsberg": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Teufelsberg_ehem_Radaranlage.jpg/960px-Teufelsberg_ehem_Radaranlage.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Teufelsberg"
+ },
+ "gedaechtnis": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Ged%C3%A4chtniskirche1.JPG/960px-Ged%C3%A4chtniskirche1.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Kaiser-Wilhelm-Gedächtniskirche"
+ },
+ "unterwelten": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Ticketshop_Berliner_Unterwelten.jpg/960px-Ticketshop_Berliner_Unterwelten.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Berliner Unterwelten"
+ },
+ "holzmarkt": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Holzmarkt_Berlin_S%C3%A4%C3%A4lchen_Spree_View.jpg/960px-Holzmarkt_Berlin_S%C3%A4%C3%A4lchen_Spree_View.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Holzmarkt 25"
+ },
+ "katzorange": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Berlin_Mitte_Mitte.svg/960px-Berlin_Mitte_Mitte.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Berlin-Mitte"
+ },
+ "glienicke": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Glienicker_Br%C3%BCcke.JPG/960px-Glienicker_Br%C3%BCcke.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Glienicker Brücke"
+ },
+ "bravo": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Berliner_Mauer_1987_00010036.jpg/960px-Berliner_Mauer_1987_00010036.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Checkpoint Bravo"
+ },
+ "kornhaus": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Das_Kornhaus_in_Dessau.jpg/960px-Das_Kornhaus_in_Dessau.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Kornhaus (Dessau)"
+ },
+ "bauhaus": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Bauhaus-Signet.svg/960px-Bauhaus-Signet.svg.png?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "fr:Bauhaus"
+ },
+ "nikolai": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Nicolaikirche_Leipzig.jpg/960px-Nicolaikirche_Leipzig.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Nikolaikirche (Leipzig)"
+ },
+ "auerbach": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Schilder_an_Auerbachs_Keller_2013.jpg/960px-Schilder_an_Auerbachs_Keller_2013.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Auerbachs Keller"
+ },
+ "moritzbastei": {
+  "url": "https://upload.wikimedia.org/wikipedia/de/c/c9/Moritzbastei_Leipzig_1784.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "from": "de:Moritzbastei"
+ },
+ "spinnerei": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Ratingen_industriemuseum_cromford_spinnerei.jpg/960px-Ratingen_industriemuseum_cromford_spinnerei.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Baumwollspinnerei"
+ },
+ "plagwitz": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Karl-Heine-Stra%C3%9Fe_Stra%C3%9Fenschild.JPG/960px-Karl-Heine-Stra%C3%9Fe_Stra%C3%9Fenschild.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Karl-Heine-Straße"
+ },
+ "moedlareuth": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Open_air_museum.jpg/960px-Open_air_museum.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "fr:Mödlareuth"
+ },
+ "bambergrathaus": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Bamberg_Altes_Rathaus_17RM1565-PSD.jpg/960px-Bamberg_Altes_Rathaus_17RM1565-PSD.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Altes Rathaus (Bamberg)"
+ },
+ "kleinvenedig": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/DEU_Bamberg_COA.svg/960px-DEU_Bamberg_COA.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Bamberg"
+ },
+ "schlenkerla": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bamberg-Schlenkerla1-Asio.JPG/960px-Bamberg-Schlenkerla1-Asio.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Heller-Bräu Trum"
+ },
+ "mainbruecke": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Panorama_Alte_Mainbr%C3%BCcke_W%C3%BCrzburg.jpg/960px-Panorama_Alte_Mainbr%C3%BCcke_W%C3%BCrzburg.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Alte Mainbrücke"
+ },
+ "buergerspital": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/B%C3%BCrgerspital_zum_Hl_Geist_2.JPG/960px-B%C3%BCrgerspital_zum_Hl_Geist_2.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Bürgerspital zum Heiligen Geist"
+ },
+ "heidelberg": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Heidelberg-2726936.jpg/960px-Heidelberg-2726936.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Heidelberger Schloss"
+ },
+ "brueckenaffe": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Alte_Br%C3%BCcke_Heidelberg.JPG/960px-Alte_Br%C3%BCcke_Heidelberg.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Alte Brücke (Heidelberg)"
+ },
+ "pontcorbeau": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Strasbourg_Winstub_Aux_Armes_de_Strasbourg_Stadtwappe_novembre_2013_02.jpg/960px-Strasbourg_Winstub_Aux_Armes_de_Strasbourg_Stadtwappe_novembre_2013_02.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "fr:Winstub"
+ },
+ "petitefrance": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Grande_%C3%8Ele_de_Strasbourg_et_Petite_France.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+  "from": "fr:Petite France (Strasbourg)"
+ },
+ "metzcathedrale": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Metz_%28Moselle%29_-_Cath%C3%A9drale_Saint-%C3%89tienne_%2832283913217%29.jpg/960px-Metz_%28Moselle%29_-_Cath%C3%A9drale_Saint-%C3%89tienne_%2832283913217%29.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "fr:Cathédrale Saint-Étienne de Metz"
+ },
+ "metzimperial": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Gare_de_Metz_R01.jpg/960px-Gare_de_Metz_R01.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "fr:Quartier impérial de Metz"
+ },
+ "metzmarche": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Marche_couvert_%283672190363%29.jpg/960px-Marche_couvert_%283672190363%29.jpg?utm_source=fr.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "fr:Marché couvert de Metz"
+ },
+ "hohenzollern": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Hohenzollernbr%C3%BCcke_K%C3%B6ln_von_oben.jpg/960px-Hohenzollernbr%C3%BCcke_K%C3%B6ln_von_oben.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "en:Hohenzollern Bridge"
+ },
+ "belgisches": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Sankt_Michael_K%C3%B6ln_Br%C3%BCsseler_Platz.JPG/960px-Sankt_Michael_K%C3%B6ln_Br%C3%BCsseler_Platz.JPG?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Brüsseler Platz"
+ },
+ "markthalle": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Berlin%2C_Kreuzberg%2C_Eisenbahnstrasse_42-43%2C_Markthalle_IX.jpg/960px-Berlin%2C_Kreuzberg%2C_Eisenbahnstrasse_42-43%2C_Markthalle_IX.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Markthalle IX"
+ },
+ "meisterhaeuser": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Wappen_Dessau-Rosslau.svg/960px-Wappen_Dessau-Rosslau.svg.png?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Dessau-Roßlau"
+ },
+ "spezialkeller": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Bierspezial.jpg/960px-Bierspezial.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Brauerei Spezial"
+ },
+ "speyerdom": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Speyer---Cathedral---South-View---%28Gentry%29.jpg/960px-Speyer---Cathedral---South-View---%28Gentry%29.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Speyerer Dom"
+ },
+ "technikspeyer": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Speyer-AutoTechnikMuseum2019-04-20-11-48-04.jpg/960px-Speyer-AutoTechnikMuseum2019-04-20-11-48-04.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "en:Technik Museum Speyer"
+ },
+ "burgermeister": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/SchlesischesTorBerlinL1130135_%282%29.jpg/960px-SchlesischesTorBerlinL1130135_%282%29.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Schlesisches Tor"
+ },
+ "wuerzburg": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Festung_Marienberg_-_W%C3%BCrzburg_-_2013.jpg/960px-Festung_Marienberg_-_W%C3%BCrzburg_-_2013.jpg?utm_source=de.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+  "from": "de:Festung Marienberg"
+ }
+};
+
+var DAYS = [
+{id:"j1", short:"Cologne", dir:"aller", t:"Paris → Cologne", km:"510 km", dr:"5 h 10", hotel:"Nuit 1 · Cologne",
+ note:"On roule d'une traite. La voiture s'arrête au P+R à l'entrée ouest de Cologne et n'en bouge plus : vous entrez en ville en tram, et vous avez l'après-midi et la soirée entières.",
+ resa:"Zone environnementale : ne descendez pas de l'A4 avant la sortie Köln-Weiden. Dimanche : les commerces sont fermés, tout le reste est ouvert.",
+ s:[
+  {t:"07:15",k:"route",n:"Départ de Paris",d:"A4, Reims, les Ardennes, la Meuse, Liège, Aix-la-Chapelle. Une seule pause à mi-parcours.",u:"5 h 10 + pause"},
+  {t:"12:45",k:"route",n:"P+R Weiden West, on laisse la voiture",d:"685 places, à la sortie même de l'A4 : vous n'entrez jamais dans la zone environnementale. Puis <b>tram 1 → Neumarkt, 26 min</b>, ou S12/S19 → Hauptbahnhof, 15 min.",u:"40 min porte-à-porte",a:"P+R Weiden West, Aachener Straße 1420, 50859 Köln",ll:[50.9345,6.8385]},
+  {t:"13:45",k:"dodo",n:"Hôtel, on pose les bagages",d:"Et on ne remonte plus dans la voiture jusqu'à demain matin."},
+  {t:"14:30",k:"visite",n:"Le Dom",d:"632 ans de chantier pour la plus haute façade d'église du monde. On entre, on lève la tête. <b>Ne montez pas les 533 marches</b> — vous avez toute l'après-midi devant vous.",u:"1 h",p:"dom",a:"Kölner Dom, Domkloster 4, Köln",ll:[50.9413,6.9583]},
+  {t:"15:40",k:"visite",n:"Le pont Hohenzollern",d:"Un million de cadenas sur le grillage, les trains qui grondent au-dessus de l'eau, la cathédrale dans le dos. Traversez-le jusqu'à la rive droite pour la vue.",u:"30 min",p:"hohenzollern",a:"Hohenzollernbrücke, Köln",ll:[50.9410,6.9660]},
+  {t:"16:15",k:"visite",n:"Rheinauhafen & les Kranhäuser",d:"L'ancien port fluvial, et trois immeubles en forme de <b>grues portuaires renversées</b> posés au bord du Rhin. On y descend le long de l'eau depuis la vieille ville.",u:"45 min",p:"rheinauhafen",a:"Rheinauhafen, Köln",ll:[50.9265,6.9645]},
+  {t:"17:15",k:"art",n:"Ehrenfeld, le quartier street art",d:"L'ancien quartier ouvrier devenu la vitrine du festival CityLeaks : des <b>fresques monumentales sur des pignons entiers</b>, des cours d'ateliers, des friches réoccupées, et l'ancienne usine Helios avec son phare planté en pleine rue. On marche au hasard, c'est le principe. Tram 3 ou 4 depuis le centre.",u:"1 h 30",p:"ehrenfeld",a:"Körnerstraße, Köln-Ehrenfeld",ll:[50.9500,6.9200]},
+  {t:"18:50",k:"art",n:"Odonien",d:"Une friche que le sculpteur Odo Rumpf a remplie de <b>machines rouillées géantes</b> — robots, insectes de ferraille, structures mobiles — avec un bar en plein air au milieu. L'ouverture dépend des événements et de la météo : vérifiez le programme du jour avant d'y aller.",u:"45 min",p:"odonien",a:"Odonien, Hornstraße 85, Köln",ll:[50.9636,6.9440]},
+  {t:"19:45",k:"table",n:"Dîner · Brauhaus Päffgen",d:"Kölsch tiré au fût dans des verres de 20 cl. Le serveur vous en repose un sans rien demander, et recommence, à l'infini : <b>pour arrêter, posez le sous-bock sur le verre</b>. Cuisine rhénane, cour intérieure. Espèces uniquement.",u:"1 h 30",p:"paeffgen",a:"Brauhaus Päffgen, Friesenstraße 64-66, Köln",ll:[50.9430,6.9420]},
+  {t:"21:30",k:"soir",n:"Brüsseler Platz",d:"Le quartier belge, à 8 minutes à pied. L'été, tout le monde s'assoit sur les marches de l'église au milieu de la place, bière à la main. C'est là que sortent les Colonais.",p:"belgisches",a:"Brüsseler Platz, Köln",ll:[50.9390,6.9330]}
+ ]},
+
+{id:"j2", short:"Quedlinbourg", dir:"aller", t:"Cologne → Quedlinbourg", km:"450 km", dr:"4 h 40", hotel:"Nuit 2 · Quedlinbourg",
+ note:"Retour au P+R en tram, puis la longue traversée. Quedlinbourg n'a aucune zone environnementale : vous entrez en voiture et vous vous garez au pied de la vieille ville.",
+ resa:"Lundi : les petits musées de Quedlinbourg (Ständerbau, Klopstockhaus) et l'intérieur de la Stiftskirche sont probablement fermés. La journée est construite pour être entièrement en plein air — vérifiez quand même si vous voulez entrer quelque part.",
+ s:[
+  {t:"08:30",k:"route",n:"Tram jusqu'au P+R, puis la route",d:"450 km par la Ruhr et la Hesse. Déjeuner sur une aire, une vraie pause café à mi-parcours.",u:"5 h 20 avec le tram"},
+  {t:"14:00",k:"dodo",n:"Quedlinbourg",d:"Pas de zone environnementale. Garez-vous au Parkplatz Marschlinger Hof — central, WC et kiosque d'info sur place, cinq minutes à pied du Markt. Les pavés sont redoutables pour les valises à roulettes.",a:"Parkplatz Marschlinger Hof, Marschlinger Hof, 06484 Quedlinburg",ll:[51.7910,11.1400]},
+  {t:"14:45",k:"visite",n:"La vieille ville à pied",d:"<b>2 000 maisons à colombages, six siècles d'architecture, pas une bombe.</b> Perdez-vous entre le Markt et le Münzenberg, la colline d'en face où des musiciens ambulants ont bâti leurs maisons dans les ruines d'un couvent.",u:"2 h",p:"quedlinburg",a:"Markt, Quedlinburg",ll:[51.7885,11.1450]},
+  {t:"16:50",k:"visite",n:"Le Klopstockhaus & le Ständerbau",d:"À deux pas l'un de l'autre : la maison natale du poète Klopstock, et le <b>plus vieux colombage d'Allemagne</b>, vers 1310. Les intérieurs sont fermés le lundi, mais les façades se lisent très bien de la rue.",u:"30 min",p:"staenderbau",a:"Klopstockhaus, Schlossberg 12, Quedlinburg",ll:[51.7866,11.1391]},
+  {t:"17:30",k:"visite",n:"Le Schlossberg au couchant",d:"L'éperon rocheux et sa terrasse, la meilleure vue sur les toits. L'église abrite un trésor médiéval volé par un officier américain en 1945 et retrouvé au Texas quarante ans plus tard ; Himmler s'était approprié le lieu pour en faire un temple SS.",u:"1 h",p:"stiftskirche",a:"Stiftskirche St. Servatii, Schlossberg 1, Quedlinburg",ll:[51.7861,11.1379]},
+  {t:"19:30",k:"table",n:"Dîner · Brauhaus Lüdde",d:"Brasserie de 1807 qui fait toujours sa bière sur place, dont une brune très noire au nom imprononçable. Cuisine du Harz, portions honnêtes, ambiance de village.",u:"1 h 30",p:"luedde",a:"Brauhaus Lüdde, Blasiistraße 14, Quedlinburg",ll:[51.7893,11.1425]},
+  {t:"21:00",k:"soir",n:"Les ruelles de nuit",d:"Vingt minutes de marche entre le Markt et le Schlossberg. Éclairage jaune, pas une enseigne, personne. Le contraire absolu de ce qui vous attend après-demain."}
+ ]},
+
+{id:"j3", short:"Marienborn + Berlin", dir:"aller", t:"Quedlinbourg → Berlin", km:"265 km", dr:"3 h 05", hotel:"Nuits 3 à 6 · Berlin",
+ note:"Courte étape, et le premier grand morceau du fil rouge : le poste-frontière de Marienborn, conservé intact, à 400 m de la sortie d'autoroute. Puis Berlin, où la voiture se gare pour quatre jours.",
+ resa:"Marienborn : entrée libre, le site extérieur se visite tous les jours. Prenez un titre de transport zones AB à la semaine dès votre arrivée à Berlin.",
+ s:[
+  {t:"09:30",k:"route",n:"Vers Marienborn",d:"90 km plein nord par l'A14 puis l'A2.",u:"1 h 15"},
+  {t:"10:45",k:"mur",n:"Checkpoint Alpha · Marienborn",d:"<b>Le plus grand poste-frontière de la RDA, laissé tel quel.</b> Les guérites, les couloirs de contrôle, les fosses depuis lesquelles on inspectait le dessous des voitures, le hangar où l'on démontait les véhicules suspects. Un million de personnes par an passaient ici. Entrée libre, et c'est le lieu le plus fort du voyage sur la division allemande.",u:"1 h 15",p:"marienborn",a:"Gedenkstätte Deutsche Teilung Marienborn, An der Bundesautobahn 2, Marienborn",ll:[52.2131,11.0333]},
+  {t:"12:00",k:"route",n:"Marienborn → Berlin",d:"175 km par l'A2 puis l'A10 et l'A115. Déjeuner rapide sur l'aire. Vous contournez la zone environnementale par l'ouest.",u:"2 h"},
+  {t:"14:15",k:"route",n:"P+R Olympiastadion, on gare pour 4 jours",d:"Ouvert 24 h/24, gratuit hors jour de match, largement à l'ouest du ring S-Bahn qui délimite la zone. Puis <b>S3/S9 → Hauptbahnhof 15 min</b>, ou U2 → Mitte 25 min. Vérifiez qu'il n'y a pas de match du Hertha pendant vos quatre nuits.",u:"35 min porte-à-porte",a:"P+R Olympiastadion, Trakehner Allee 6, 14053 Berlin",ll:[52.5120,13.2410]},
+  {t:"15:15",k:"dodo",n:"Hôtel",d:"Le temps de poser les valises et d'acheter le titre de transport."},
+  {t:"16:15",k:"mur",n:"Mauerpark",d:"L'ancienne bande de la mort transformée en parc. Le <b>mur d'origine sert aujourd'hui de mur de graffitis</b>, repeint en permanence par qui veut. Montez sur la butte : c'est le spot de fin de journée des Berlinois, guitares comprises.",u:"1 h 45",p:"mauerpark",a:"Mauerpark, Gleimstraße 55, Berlin",ll:[52.5410,13.4020]},
+  {t:"18:15",k:"table",n:"Dîner · Prater Garten",d:"La plus vieille brasserie en plein air de Berlin, 1837, sous les marronniers, à dix minutes du Mauerpark. Longues tables communes, bière au litre, saucisses grillées. Le meilleur atterrissage possible pour un premier soir.",u:"2 h",p:"prater",a:"Prater Garten, Kastanienallee 7-9, Berlin",ll:[52.5390,13.4110]}
+ ]},
+
+{id:"j4", short:"Berlin · le Mur", dir:"stay", t:"Berlin · le Mur, du nord au sud", km:"0 km", dr:"≈ 6 km à pied", hotel:"Nuit 4 · Berlin",
+ note:"Tous les lieux du Mur et des checkpoints, dans l'ordre géographique, du nord au sud. Une longue ligne à pied et en S-Bahn, avec une vraie pause avant de ressortir le soir.",
+ resa:"Coupole du Reichstag : inscription en ligne obligatoire plusieurs jours avant, avec les noms et pièces d'identité. Zur letzten Instanz : réserver.",
+ s:[
+  {t:"09:30",k:"mur",n:"Mémorial du Mur · Bernauer Straße",d:"<b>Le seul endroit où l'on voit le dispositif complet</b> : mur avant, bande de la mort, chemin de patrouille, mirador. Les tunnels d'évasion sont tracés au sol, les immeubles murés matérialisés par des tiges d'acier. C'est ici qu'il faut venir, pas à Checkpoint Charlie. Gratuit.",u:"1 h 30",p:"bernauer",a:"Gedenkstätte Berliner Mauer, Bernauer Straße 111, Berlin",ll:[52.5352,13.3900]},
+  {t:"11:15",k:"mur",n:"Tränenpalast",d:"Le « palais des larmes » : le hall vitré de la gare de Friedrichstraße où l'on se séparait entre Est et Ouest, sans savoir si on se reverrait. Les valises, les formulaires, les cabines de contrôle sont là. Gratuit, et ça serre la gorge.",u:"45 min",p:"traenenpalast",a:"Tränenpalast, Reichstagufer 17, Berlin",ll:[52.5205,13.3877]},
+  {t:"12:15",k:"table",n:"Déjeuner · Nante-Eck",d:"Kneipe berlinoise sans façon sur Unter den Linden : currywurst, boulette, Eisbein. Rapide et pas cher, exactement ce qu'il faut au milieu de cette journée.",u:"1 h",a:"Nante-Eck, Unter den Linden 35, Berlin",ll:[52.5170,13.3880]},
+  {t:"13:30",k:"visite",n:"Porte de Brandebourg",d:"Elle est restée coincée <b>dans le no man's land</b> pendant 28 ans, inaccessible des deux côtés. Cinq minutes de marche depuis le déjeuner.",u:"25 min",p:"brandenburger",a:"Brandenburger Tor, Pariser Platz, Berlin",ll:[52.5163,13.3777]},
+  {t:"14:00",k:"visite",n:"Mémorial de l'Holocauste",d:"2 711 stèles de béton sur un sol qui ondule. Enfoncez-vous jusqu'au centre : le bruit de la ville disparaît d'un coup, et vous ne voyez plus que le ciel.",u:"40 min",p:"holocaust",a:"Denkmal für die ermordeten Juden Europas, Cora-Berliner-Straße 1, Berlin",ll:[52.5139,13.3789]},
+  {t:"14:45",k:"mur",n:"Potsdamer Platz",d:"Des pans de Mur debout au milieu des tours de verre, et la <b>double rangée de pavés</b> qui trace son parcours dans toute la ville. Une fois que vous l'avez repérée, vous la verrez partout.",u:"25 min",p:"potsdamerplatz",a:"Potsdamer Platz, Berlin",ll:[52.5096,13.3760]},
+  {t:"15:15",k:"mur",n:"Topographie de la Terreur",d:"Sur les caves déblayées du siège de la Gestapo et de la SS, le long du <b>plus long pan de Mur du centre-ville</b>. Tout est en plein air, tout est gratuit, et c'est implacable.",u:"1 h",p:"topographie",a:"Topographie des Terrors, Niederkirchnerstraße 8, Berlin",ll:[52.5065,13.3833]},
+  {t:"16:15",k:"mur",n:"Checkpoint Charlie",d:"Le poste des Alliés, où chars soviétiques et américains se sont fait face canon contre canon en octobre 1961. Aujourd'hui c'est une baraque à selfies : <b>quinze minutes, la photo, et on file</b>. Il est à 300 m de la Topographie.",u:"15 min",p:"charlie",a:"Checkpoint Charlie, Friedrichstraße 43-45, Berlin",ll:[52.5075,13.3903]},
+  {t:"16:45",k:"dodo",n:"Pause à l'hôtel",d:"Une heure et demie, vraiment. Vous avez fait 6 km et encaissé beaucoup. La soirée est longue."},
+  {t:"18:45",k:"visite",n:"Coupole du Reichstag",d:"Au couchant, la meilleure heure. On monte en spirale au-dessus de l'hémicycle : <b>le peuple littéralement au-dessus de ses députés</b>, c'est l'idée de Norman Foster. Gratuit, mais inscription obligatoire à l'avance.",u:"1 h",p:"reichstag",a:"Reichstagsgebäude, Platz der Republik 1, Berlin",ll:[52.5186,13.3761]},
+  {t:"20:15",k:"table",n:"Dîner · Zur letzten Instanz",d:"1621, la plus vieille auberge de Berlin. Napoléon et Beethoven y ont mangé, le poêle en faïence est d'origine, les bancs sont durs et la cuisine berlinoise assumée. Réservez.",u:"1 h 45",p:"letzteinstanz",a:"Zur letzten Instanz, Waisenstraße 14-16, Berlin",ll:[52.5171,13.4136]},
+  {t:"22:00",k:"soir",n:"Clärchens Ballhaus",d:"Salle de bal de 1913 qui n'a fermé ni sous les nazis ni sous la RDA. <b>On y danse encore, de 25 à 85 ans</b>, sans que personne ne trouve ça bizarre. Montez au premier voir le Spiegelsaal, la salle des miroirs laissée écaillée exprès.",p:"claerchens",a:"Clärchens Ballhaus, Auguststraße 24, Berlin",ll:[52.5266,13.3971]}
+ ]},
+
+{id:"j5", short:"Berlin · street art", dir:"stay", t:"Berlin · street art & friches", km:"0 km", dr:"vélo conseillé", hotel:"Nuit 5 · Berlin",
+ note:"Aucun musée, et la journée entière à vélo électrique : du Mur peint aux friches ferroviaires taguées, puis les pistes d'atterrissage d'un aéroport désaffecté. Vous tombez un jeudi, le seul soir de la semaine où la Markthalle Neun se transforme en festival de cuisine de rue.",
+ resa:"Réservez les vélos électriques en ligne sur berlinerfahrradverleih.de — la boutique ne prend pas les réservations par téléphone. Ouverte jeudi 10 h - 19 h : il faut donc les rendre avant 19 h. Street Food Thursday : pas de réservation, on y va quand on veut.",
+ s:[
+  {t:"10:00",k:"visite",n:"Location des vélos électriques · Radwelt Friedrichshain",d:"À la sortie de la station Warschauer Straße, donc à 600 m du départ de la journée. Ils louent des <b>e-bikes à la journée</b>, réservation en ligne uniquement, ouvert 10 h - 19 h le jeudi. <b>Sinon</b> : les e-bikes en libre-service de Lime, Bolt ou Tier se déverrouillent avec l'appli et sont partout dans le quartier — plus souple, mais plus cher sur une journée entière.",u:"20 min",a:"Radwelt Berlin Friedrichshain, Warschauer Straße 31, 10243 Berlin",ll:[52.5075,13.4490]},
+  {t:"10:25",k:"art",n:"East Side Gallery",d:"<b>1,3 km de Mur peint</b> par 118 artistes du monde entier au printemps 1990, le long de la Spree. Descendez côté Ostbahnhof et remontez vers l'Oberbaumbrücke : après 11 h, c'est un couloir de selfies.",u:"1 h",p:"eastside",a:"East Side Gallery, Mühlenstraße 3-100, Berlin",ll:[52.5050,13.4400]},
+  {t:"11:35",k:"art",n:"RAW-Gelände & Urban Spree",d:"Un dépôt de réparation ferroviaire de 1867 devenu village autogéré : <b>murs peints jusqu'au dernier centimètre</b>, ateliers, skatepark, salle d'escalade dans une tour de DCA, et la galerie-buvette Urban Spree où les fresques changent tous les mois. C'est le cœur du street art berlinois.",u:"1 h 15",p:"raw",a:"RAW-Gelände, Revaler Straße 99, Berlin",ll:[52.5075,13.4530]},
+  {t:"13:00",k:"table",n:"Déjeuner · Burgermeister",d:"Un kiosque installé dans <b>d'anciennes toilettes publiques de 1900, sous le viaduc du métro</b>, à Schlesisches Tor. On mange debout, il y a la queue, et c'est une institution de Kreuzberg depuis vingt ans.",u:"45 min",p:"burgermeister",a:"Burgermeister Schlesisches Tor, Oberbaumstraße 8, Berlin",ll:[52.5008,13.4415]},
+  {t:"13:50",k:"visite",n:"Le Landwehrkanal jusqu'à Tempelhof",d:"Le canal ombragé, Görlitzer Park, le Kreuzberg turc, puis l'ancien <b>aéroport nazi de Tempelhof</b>, celui du pont aérien de 1948 : fermé en 2008, rendu aux Berlinois, qui ont voté par référendum contre toute construction dessus. On roule <i>sur les pistes d'atterrissage</i>, entre les cerfs-volants et les barbecues. L'assistance électrique n'est pas du luxe : la boucle fait 12 km.",u:"2 h 45",p:"tempelhof",a:"Tempelhofer Feld, Columbiadamm 10, Berlin",ll:[52.4820,13.4030]},
+  {t:"16:40",k:"route",n:"Retour des vélos",d:"5 km de Tempelhofer Feld à Warschauer Straße, 20 min à l'électrique. Rendez-les avant 19 h — ensuite tout se fait en U-Bahn.",u:"30 min",a:"Radwelt Berlin Friedrichshain, Warschauer Straße 31, 10243 Berlin",ll:[52.5075,13.4490]},
+  {t:"17:15",k:"dodo",n:"Pause",d:"Quarante-cinq minutes au calme. La soirée va être longue."},
+  {t:"18:15",k:"table",n:"Dîner · Street Food Thursday",d:"U1 depuis Warschauer Straße, deux stations. Une fois par semaine, la halle de 1891 se remplit de <b>quarante stands venus du monde entier</b> — dumplings taïwanais, arepas, pastrami, glaces à l'azote — et de la moitié de Kreuzberg. C'est bruyant, bon marché, et c'est le meilleur dîner de votre séjour berlinois. Jusqu'à 22 h.",u:"2 h",p:"markthalle",a:"Markthalle Neun, Eisenbahnstraße 42-43, Berlin",ll:[52.5020,13.4310]},
+  {t:"20:30",k:"soir",n:"Klunkerkranich",d:"Un bar-jardin sur <b>le toit d'un parking de centre commercial</b> à Neukölln. On monte par la rampe à voitures jusqu'au 5ᵉ, et on prend Berlin entière dans la figure au coucher du soleil, vers 20 h 50 à cette date.",u:"1 h 30",p:"klunkerkranich",a:"Klunkerkranich, Karl-Marx-Straße 66, Berlin",ll:[52.4790,13.4370]},
+  {t:"22:30",k:"soir",n:"Tresor",d:"Si vous tenez encore : la techno dans la <b>salle des machines d'une centrale électrique désaffectée</b>, 20 m de plafond, béton nu et un tunnel stroboscopique. Sinon, la Weserstraße à Neukölln aligne des dizaines de bars minuscules.",p:"tresor",a:"Tresor, Köpenicker Straße 70, Berlin",ll:[52.5095,13.4197]}
+ ]},
+
+{id:"j6", short:"Berlin · ruines", dir:"stay", t:"Berlin · les ruines & l'ouest", km:"0 km", dr:"S-Bahn + marche", hotel:"Nuit 6 · Berlin",
+ note:"Le jour le plus insolite, et le seul à l'ouest. Une grosse expédition le matin, un après-midi sous terre, et le dernier soir dans un village construit à la main au bord de la Spree.",
+ resa:"Berliner Unterwelten : réserver en ligne, les créneaux partent vite. Katz Orange : réserver.",
+ s:[
+  {t:"09:30",k:"route",n:"Vers le Teufelsberg",d:"S-Bahn jusqu'à Grunewald, puis 25 minutes de montée en forêt — ou un taxi qui vous dépose en haut. Coupe-vent obligatoire, il fait froid là-haut même en août.",u:"1 h"},
+  {t:"10:30",k:"art",n:"Teufelsberg",d:"Une colline faite de <b>26 millions de m³ de gravats de Berlin détruite</b>, sur laquelle les Américains ont posé une station d'écoute de la NSA. Abandonnée depuis 1991, entièrement recouverte de fresques — c'est aujourd'hui le plus grand site de street art d'Europe. Sous les dômes radar en toile déchirée, <b>l'écho tourne pendant plusieurs secondes</b> : criez une fois, vous comprendrez.",u:"2 h",p:"teufelsberg",a:"Teufelsberg, Teufelsseechaussee 10, Berlin",ll:[52.4977,13.2410]},
+  {t:"13:15",k:"table",n:"Déjeuner · Diener Tattersall",d:"Bistrot d'artistes depuis 1893, repris par un boxeur dans les années 50, murs entièrement tapissés de portraits dédicacés d'acteurs et de gens de théâtre. Le Berlin-Ouest d'avant le Mur, intact.",u:"1 h 15",a:"Diener Tattersall, Grolmanstraße 47, Berlin",ll:[52.5055,13.3230]},
+  {t:"14:45",k:"visite",n:"Église du Souvenir",d:"La tour éventrée par les bombes de 1943, laissée <b>exactement telle quelle</b>, et à côté la nef d'Egon Eiermann : un cube de 20 000 pavés de verre bleu. Entrez, la lumière est irréelle. Gratuit, vingt minutes.",u:"25 min",p:"gedaechtnis",a:"Kaiser-Wilhelm-Gedächtniskirche, Breitscheidplatz, Berlin",ll:[52.5049,13.3350]},
+  {t:"16:00",k:"visite",n:"Berliner Unterwelten",d:"Visite guidée des sous-sols : un <b>bunker de guerre resté meublé</b>, ou le parcours consacré aux tunnels d'évasion creusés sous le Mur. Une heure et demie sous terre, et des histoires qu'aucun musée ne raconte aussi bien.",u:"1 h 30",p:"unterwelten",a:"Berliner Unterwelten, Brunnenstraße 105, Berlin",ll:[52.5486,13.3886]},
+  {t:"17:45",k:"dodo",n:"Pause",d:"Retour à l'hôtel. Demain on reprend la route."},
+  {t:"19:30",k:"table",n:"Dîner · Katz Orange",d:"Une cour cachée derrière une ancienne brasserie de Mitte, bougies, cuisine soignée et sans esbroufe. Le bon dîner du voyage. Réservez.",u:"2 h",p:"katzorange",a:"Katz Orange, Bergstraße 22, Berlin",ll:[52.5320,13.3930]},
+  {t:"21:45",k:"soir",n:"Holzmarkt",d:"Un <b>village bricolé en planches au bord de la Spree</b> — bar de plage, boulangerie, scène de concert, cabanes — construit par les fondateurs de la Bar25 avec une coopérative suisse pour empêcher un promoteur d'avoir la parcelle. Les pieds dans le sable, dernier soir berlinois.",p:"holzmarkt",a:"Holzmarkt 25, Holzmarktstraße 25, Berlin",ll:[52.5115,13.4290]}
+ ]},
+
+{id:"j7", short:"Bauhaus + Leipzig", dir:"retour", t:"Berlin → Leipzig", km:"265 km", dr:"3 h 30", hotel:"Nuit 7 · Leipzig",
+ note:"On sort de Berlin par les deux derniers checkpoints — ils sont juste à côté du parking, donc gratuits en temps — on déjeune dans un bâtiment Bauhaus, on visite le Bauhaus, et on dort à Leipzig. La plus belle journée du retour.",
+ resa:"Auerbachs Keller : réserver. Samedi : le Bauhaus et les Maisons des Maîtres sont ouverts, prenez le billet combiné.",
+ s:[
+  {t:"09:00",k:"route",n:"On récupère la voiture",d:"S3/S9 jusqu'au P+R Olympiastadion, puis l'ancienne route de transit vers l'Ouest. Les deux checkpoints sont sur le chemin, sans détour.",u:"30 min",a:"P+R Olympiastadion, Trakehner Allee 6, 14053 Berlin",ll:[52.5120,13.2410]},
+  {t:"09:45",k:"mur",n:"Checkpoint Bravo · Dreilinden",d:"Le poste par lequel passaient <b>tous les transits</b> entre Berlin-Ouest et la RFA. La tour de contrôle est conservée au bord de l'autoroute, avec ses panneaux d'époque. Vingt minutes, et vous êtes déjà en route.",u:"20 min",p:"bravo",a:"Checkpoint Bravo, Kleinmachnow",ll:[52.4128,13.1758]},
+  {t:"10:20",k:"mur",n:"Pont de Glienicke",d:"Le <b>pont des espions</b>, où l'Est et l'Ouest échangeaient leurs agents en pleine nuit, au milieu du tablier. La ligne de démarcation est encore peinte sur la chaussée : posez un pied de chaque côté.",u:"25 min",p:"glienicke",a:"Glienicker Brücke, Potsdam",ll:[52.4137,13.0900]},
+  {t:"11:00",k:"route",n:"Potsdam → Dessau",d:"145 km par l'A10 puis l'A9. Dessau n'a pas de zone environnementale : vous vous garez devant.",u:"1 h 40"},
+  {t:"12:45",k:"table",n:"Déjeuner · Kornhaus",d:"<b>Déjeuner dans le Bauhaus.</b> Une guinguette de 1930 signée Carl Fieger, avec une terrasse ronde entièrement vitrée au-dessus de l'Elbe. Toujours en activité, toujours dans son jus. Demandez la table côté fleuve.",u:"1 h 15",p:"kornhaus",a:"Kornhaus Dessau, Kornhausstraße 146, Dessau-Roßlau",ll:[51.8480,12.2340]},
+  {t:"14:15",k:"art",n:"Bauhaus Dessau",d:"Le bâtiment de Gropius, 1926 : le mur-rideau de verre, les lettres verticales sur la façade, l'atelier, le réfectoire, l'escalier. <b>C'est ici que le XXᵉ siècle a décidé de quoi il aurait l'air.</b> On peut même dormir dans une chambre d'étudiant d'origine.",u:"1 h 15",p:"bauhaus",a:"Bauhaus Dessau, Gropiusallee 38, Dessau-Roßlau",ll:[51.8390,12.2280]},
+  {t:"15:40",k:"art",n:"Les Maisons des Maîtres",d:"Cinq minutes à pied : les villas blanches où logeaient <b>Kandinsky, Klee, Feininger et Moholy-Nagy</b>, remeublées à l'identique, avec les couleurs de murs qu'ils avaient eux-mêmes choisies. Celle de Gropius, détruite en 1945, a été remplacée par un fantôme de béton translucide.",u:"50 min",p:"meisterhaeuser",a:"Meisterhäuser, Ebertallee 59-71, Dessau-Roßlau",ll:[51.8410,12.2240]},
+  {t:"16:40",k:"route",n:"Dessau → P+R Leipziger Messe",d:"80 km, sortie Messegelände de l'A14 : le parking est juste là. 1 200 places, gratuit, hors zone environnementale. Puis <b>S2/S5/S5X/S6 → Hauptbahnhof, 12 min</b>.",u:"1 h 20 + 25 min de transport",a:"P+R Leipziger Messe, Messe-Allee 1, 04356 Leipzig",ll:[51.3960,12.3980]},
+  {t:"18:30",k:"visite",n:"Nikolaikirche & Mädlerpassage",d:"Les « prières du lundi » d'octobre 1989 sont sorties d'ici et sont devenues 70 000 personnes dans la rue, sans un coup de feu. <b>La révolution pacifique commence à Leipzig, pas à Berlin.</b> Puis les passages couverts du centre, à deux pas.",u:"1 h",p:"nikolai",a:"Nikolaikirche, Nikolaikirchhof 3, Leipzig",ll:[51.3400,12.3790]},
+  {t:"19:45",k:"table",n:"Dîner · Auerbachs Keller",d:"La taverne où Goethe fait boire Faust et Méphisto. Elle existe depuis 1525, au fond d'un passage couvert, et on frotte le pied de la statue de Méphisto en entrant. Réservez.",u:"1 h 45",p:"auerbach",a:"Auerbachs Keller, Grimmaische Straße 2-4, Leipzig",ll:[51.3395,12.3752]},
+  {t:"21:30",k:"soir",n:"Moritzbastei",d:"Le dernier bastion des fortifications du XVIᵉ, déblayé des gravats par des étudiants bénévoles dans les années 70 — <b>dont une certaine Angela Merkel</b>. C'est aujourd'hui le plus grand club étudiant d'Europe : caves voûtées, concerts, cinéma en plein air sur la terrasse.",p:"moritzbastei",a:"Moritzbastei, Kurt-Masur-Platz 1, Leipzig",ll:[51.3378,12.3790]}
+ ]},
+
+{id:"j8", short:"Bamberg", dir:"retour", t:"Leipzig → Bamberg", km:"290 km", dr:"3 h 15", hotel:"Nuit 8 · Bamberg",
+ note:"Le rideau de fer à taille humaine à midi, puis une longue après-midi et une longue soirée à Bamberg — qui n'a aucune zone environnementale et où vous vous garez à cent mètres de la vieille ville.",
+ resa:"Dimanche : la Spinnerei de Leipzig, le quartier d'ateliers, est fermée, et elle est de toute façon dans la zone environnementale (35 min de transport depuis votre parking). On part donc tôt et on gagne l'après-midi à Bamberg. Le Spezial-Keller peut fermer certains jours — vérifiez, sinon le Wilde Rose Keller est à 300 m.",
+ s:[
+  {t:"08:45",k:"route",n:"P+R Leipzig → Mödlareuth",d:"S-Bahn jusqu'au parking (12 min), puis 175 km par l'A9. Déjeuner rapide sur l'aire avant la sortie de Hof.",u:"2 h 15",a:"P+R Leipziger Messe, Messe-Allee 1, 04356 Leipzig",ll:[51.3960,12.3980]},
+  {t:"11:15",k:"mur",n:"Mödlareuth · « le petit Berlin »",d:"Un village de 50 habitants que la frontière traversait en plein milieu. <b>Un mur de béton de 3,30 m a coupé la rue principale pendant vingt-huit ans</b> : les familles se faisaient signe d'un côté à l'autre sans pouvoir se parler. Le mur, le mirador et les blindés sont là, en plein champ. Le rideau de fer à taille humaine, et bien plus parlant qu'à Berlin.",u:"1 h 15",p:"moedlareuth",a:"Deutsch-Deutsches Museum Mödlareuth, Mödlareuth 13, Töpen",ll:[50.4183,11.8547]},
+  {t:"12:45",k:"route",n:"Mödlareuth → Bamberg",d:"110 km. Pas de zone environnementale : garez-vous au Parkhaus City-Altstadt, Geyerswörthstraße, 344 places, à cinq minutes à pied de l'hôtel de ville.",u:"1 h 20",a:"Parkhaus City-Altstadt, Geyerswörthstraße 1, 96047 Bamberg",ll:[49.8900,10.8890]},
+  {t:"14:30",k:"visite",n:"L'hôtel de ville sur son île",d:"Ni l'évêque ni les bourgeois ne voulaient céder un mètre de leur rive : <b>ils ont bâti l'hôtel de ville sur une île artificielle au milieu de la rivière</b>. Sa façade en trompe-l'œil laisse dépasser une vraie jambe d'angelot en relief. L'absurdité érigée en urbanisme.",u:"45 min",p:"bambergrathaus",a:"Altes Rathaus, Obere Brücke 1, Bamberg",ll:[49.8918,10.8853]},
+  {t:"15:20",k:"visite",n:"La Petite Venise & la cathédrale",d:"La rangée de maisons de pêcheurs penchées au-dessus de la Regnitz avec leurs jardinets suspendus, puis la montée vers la cathédrale et son <b>Cavalier de Bamberg</b>, dont personne ne sait qui il représente.",u:"1 h 30",p:"kleinvenedig",a:"Klein Venedig, Am Leinritt, Bamberg",ll:[49.8940,10.8880]},
+  {t:"17:00",k:"dodo",n:"Pause à l'hôtel",d:"Vous avez gagné deux heures sur le programme : profitez-en, la soirée franconienne est longue."},
+  {t:"18:30",k:"soir",n:"Spezial-Keller",d:"Les brasseurs ont creusé leurs caves dans la colline, puis planté des marronniers dessus pour rafraîchir : <b>les jardins à bière de Bamberg sont littéralement sur les caves</b>. La vue plonge sur les toits et la cathédrale au soleil couchant. Le plus beau verre de tout le voyage.",u:"1 h 15",p:"spezialkeller",a:"Spezial-Keller, Sternwartstraße 8, Bamberg",ll:[49.8875,10.8760]},
+  {t:"20:00",k:"table",n:"Dîner · Schlenkerla",d:"Le malt est séché sur un feu de bois de hêtre : la bière a un <b>goût de lard grillé</b>. Servie au tonneau, dans une salle du XVIᵉ, debout ou serré aux tables communes. La première gorgée surprend, la troisième convainc. Espèces.",u:"1 h 45",p:"schlenkerla",a:"Schlenkerla, Dominikanerstraße 6, Bamberg",ll:[49.8912,10.8846]}
+ ]},
+
+{id:"j9", short:"Spire + Strasbourg", dir:"retour", t:"Bamberg → Strasbourg", km:"405 km", dr:"4 h 20", hotel:"Nuit 9 · Strasbourg",
+ note:"Heidelberg a une zone environnementale, donc on descend un peu plus au sud : Spire n'en a aucune, on se gare devant, et son musée technique aligne un Boeing 747 sur pylônes et une navette spatiale soviétique.",
+ resa:"Lundi : vérifiez l'ouverture du Bürgerspital à Wurtzbourg et d'Au Pont Corbeau à Strasbourg, beaucoup de winstubs ferment dimanche et lundi. ZFE de Strasbourg : vérifiez votre Crit'Air — si vous êtes en 4 ou 5, garez-vous au P+R Rotonde et finissez en tram A (10 min).",
+ s:[
+  {t:"08:30",k:"route",n:"Bamberg → Wurtzbourg",d:"100 km par l'A70 puis l'A3. Pas de zone : garez-vous au Parkplatz Talavera, grand parking gratuit rive gauche, 10 min à pied par le vieux pont.",u:"1 h 10",a:"Parkplatz Talavera, Mainaustraße, 97082 Würzburg",ll:[49.7975,9.9195]},
+  {t:"09:45",k:"soir",n:"Le Brückenschoppen",d:"La tradition locale : on achète un verre de silvaner et on le boit <b>debout sur le vieux pont du Main</b>, entre les statues de saints, face à la forteresse. À dix heures du matin, oui, et tout le monde le fait. Puis la vieille ville en montant vers la Residenz.",u:"1 h 30",p:"mainbruecke",a:"Alte Mainbrücke, Würzburg",ll:[49.7947,9.9260]},
+  {t:"11:20",k:"table",n:"Déjeuner · Bürgerspital",d:"Un hospice fondé en 1316 qui <b>finance encore ses soins aux vieillards avec son vignoble</b>. On y mange franconien et on y boit ce qu'ils ont fait, dans une cour du XIVᵉ siècle.",u:"1 h 15",p:"buergerspital",a:"Bürgerspital Weinstuben, Theaterstraße 19, Würzburg",ll:[49.7960,9.9333]},
+  {t:"12:45",k:"route",n:"Wurtzbourg → Spire",d:"180 km par l'A3 puis l'A61. Spire n'a pas de zone environnementale.",u:"1 h 50"},
+  {t:"14:45",k:"visite",n:"Technik Museum Speyer",d:"Un <b>Boeing 747 posé sur pylônes</b> dans lequel on monte et dont on redescend par un toboggan de 25 m, un sous-marin qu'on traverse en rampant, et surtout la navette spatiale soviétique <b>Bourane</b> — l'un des deux seuls exemplaires jamais construits, échouée là après la chute de l'URSS. Parking gratuit devant, ouvert tous les jours.",u:"2 h",p:"technikspeyer",a:"Technik Museum Speyer, Am Technik Museum 1, 67346 Speyer",ll:[49.3175,8.4360]},
+  {t:"16:55",k:"visite",n:"La cathédrale de Spire",d:"À dix minutes de là : la <b>plus grande église romane conservée au monde</b>, et la crypte impériale où reposent huit empereurs et rois. Une forêt de piliers, pas une once de décoration. C'est la puissance à l'état brut, et c'est gratuit.",u:"35 min",p:"speyerdom",a:"Speyerer Dom, Domplatz, 67346 Speyer",ll:[49.3175,8.4425]},
+  {t:"17:35",k:"route",n:"Spire → Strasbourg",d:"130 km par l'A5 puis le Rhin. Attention à la ZFE en entrant dans Strasbourg.",u:"1 h 25"},
+  {t:"19:45",k:"table",n:"Dîner · Au Pont Corbeau",d:"Winstub sérieuse au bord de l'Ill : baeckeoffe, presskopf, riesling au pichet. Le dernier dîner allemand-mais-français du voyage. Réservez — et si c'est fermé le lundi, les winstubs de la rue du Maroquin prennent le relais.",u:"1 h 45",p:"pontcorbeau",a:"Au Pont Corbeau, 21 quai Saint-Nicolas, Strasbourg",ll:[48.5780,7.7500]},
+  {t:"21:30",k:"soir",n:"La Petite France déserte",d:"Vingt-cinq minutes de marche quand les cars sont partis : les canaux se vident, les colombages se reflètent dans l'eau noire, et il n'y a plus personne. Le plus joli souvenir du retour.",p:"petitefrance",a:"Petite France, Strasbourg",ll:[48.5800,7.7420]}
+ ]},
+
+{id:"j10", short:"Metz + Paris", dir:"retour", t:"Strasbourg → Paris", km:"490 km", dr:"4 h 45", hotel:"Retour à la maison",
+ note:"Une seule coupure, mais bien placée : Metz est à cinq minutes de l'autoroute, n'a pas de zone environnementale, et tout tient dans un kilomètre carré.",
+ resa:"Mardi : le Marché couvert est ouvert. Parking souterrain de la Cathédrale ou de la République, tous deux à cinq minutes à pied.",
+ s:[
+  {t:"08:30",k:"route",n:"Strasbourg → Metz",d:"160 km par l'A4.",u:"1 h 40"},
+  {t:"10:15",k:"visite",n:"Le quartier impérial",d:"La ville que Guillaume II a fait bâtir après 1871 pour prouver que Metz était allemande : avenues monumentales, mélange de néo-roman et d'Art nouveau, et une <b>gare conçue pour débarquer 20 000 soldats en 24 heures</b>. Un des plus beaux ensembles wilhelminiens hors d'Allemagne, et personne ne s'y arrête.",u:"45 min",p:"metzimperial",a:"Gare de Metz-Ville, place du Général de Gaulle, Metz",ll:[49.1096,6.1770]},
+  {t:"11:05",k:"visite",n:"Cathédrale Saint-Étienne",d:"Surnommée <b>« la lanterne du Bon Dieu »</b> : 6 500 m² de vitraux, la plus grande surface de France, dont plusieurs verrières signées Chagall. Gratuit, trente minutes, et la lumière change tout le temps.",u:"40 min",p:"metzcathedrale",a:"Cathédrale Saint-Étienne de Metz, place d'Armes, Metz",ll:[49.1203,6.1755]},
+  {t:"11:50",k:"table",n:"Déjeuner · Marché couvert",d:"Comptoirs et producteurs dans un <b>ancien palais épiscopal</b> resté inachevé par la Révolution, à cent mètres de la cathédrale. On mange debout au comptoir, c'est le meilleur dernier repas possible.",u:"1 h 10",p:"metzmarche",a:"Marché couvert de Metz, place de la Cathédrale, Metz",ll:[49.1200,6.1748]},
+  {t:"13:10",k:"route",n:"Metz → Paris",d:"330 km par l'A4. Une pause à mi-chemin, et visez une arrivée avant 17 h.",u:"3 h 20"},
+  {t:"16:45",k:"dodo",n:"Paris",d:"2 650 km au compteur, trois pays, deux routes qui ne se sont jamais croisées, et pas une amende de zone environnementale."}
+ ]}
+];
+
+/* ---------------- utilitaires ---------------- */
+var LBL={route:"route",visite:"à voir",mur:"le mur",art:"art & friches",table:"à table",soir:"le soir",dodo:"souffler"};
+var PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>';
+var TILE="https://basemaps.cartocdn.com/rastertiles/light_all/";
+var MW=800, MH=580, MPAD=58;
+var JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+var MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function gq(a){ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(a); }
+function ymd(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function dist(a,b){
+  var R=6371, dLat=(b[0]-a[0])*Math.PI/180, dLng=(b[1]-a[1])*Math.PI/180;
+  var la=a[0]*Math.PI/180, lb=b[0]*Math.PI/180;
+  var h=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.sin(dLng/2)*Math.sin(dLng/2)*Math.cos(la)*Math.cos(lb);
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+function dirUrl(list,mode){
+  if(list.length<2) return null;
+  var p=list.map(function(s){return s.a;}), o=p.shift(), d=p.pop();
+  var u="https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(o)+"&destination="+encodeURIComponent(d)+"&travelmode="+mode;
+  if(p.length) u+="&waypoints="+p.slice(0,9).map(encodeURIComponent).join("|");
+  return u;
+}
+function merc(lat,lng,z){
+  var s=256*Math.pow(2,z), la=lat*Math.PI/180;
+  return [ (lng+180)/360*s, (1-Math.log(Math.tan(la)+1/Math.cos(la))/Math.PI)/2*s ];
+}
+/* écarte les points trop proches pour que les numéros restent lisibles */
+function relax(pts,minD){
+  var out=pts.map(function(p){ return [p[0],p[1]]; });
+  for(var it=0; it<80; it++){
+    var moved=false;
+    for(var i=0;i<out.length;i++) for(var j=i+1;j<out.length;j++){
+      var dx=out[j][0]-out[i][0], dy=out[j][1]-out[i][1];
+      var d=Math.sqrt(dx*dx+dy*dy);
+      if(d>=minD) continue;
+      if(d<0.001){ dx=Math.cos(i*2.4); dy=Math.sin(i*2.4); d=1; }
+      var push=(minD-d)/2/d;
+      out[i][0]-=dx*push; out[i][1]-=dy*push;
+      out[j][0]+=dx*push; out[j][1]+=dy*push;
+      moved=true;
+    }
+    if(!moved) break;
+  }
+  return out;
+}
+
+/* ---------------- carte du jour ---------------- */
+function bigMap(stops,dayId){
+  var lats=stops.map(function(s){return s.ll[0];}), lngs=stops.map(function(s){return s.ll[1];});
+  var la0=Math.min.apply(null,lats), la1=Math.max.apply(null,lats);
+  var lo0=Math.min.apply(null,lngs), lo1=Math.max.apply(null,lngs);
+  var z=16;
+  for(; z>3; z--){
+    var a=merc(la1,lo0,z), b=merc(la0,lo1,z);
+    if(b[0]-a[0] <= MW-2*MPAD && b[1]-a[1] <= MH-2*MPAD) break;
+  }
+  var tl=merc(la1,lo0,z), br=merc(la0,lo1,z);
+  var ox=(tl[0]+br[0])/2-MW/2, oy=(tl[1]+br[1])/2-MH/2, n=Math.pow(2,z);
+
+  var tiles="";
+  for(var tx=Math.floor(ox/256); tx<=Math.floor((ox+MW)/256); tx++){
+    for(var ty=Math.floor(oy/256); ty<=Math.floor((oy+MH)/256); ty++){
+      if(ty<0||ty>=n) continue;
+      tiles+='<img loading="lazy" alt="" src="'+TILE+z+"/"+(((tx%n)+n)%n)+"/"+ty+'@2x.png" style="left:'+
+        ((tx*256-ox)/MW*100).toFixed(4)+'%;top:'+((ty*256-oy)/MH*100).toFixed(4)+
+        '%;width:'+(256/MW*100).toFixed(4)+'%;height:'+(256/MH*100).toFixed(4)+'%">';
+    }
+  }
+
+  var truePts=stops.map(function(s){ var m=merc(s.ll[0],s.ll[1],z); return [m[0]-ox,m[1]-oy]; });
+  var pts=relax(truePts,34);
+
+  var svg='<svg viewBox="0 0 '+MW+' '+MH+'" role="img" aria-label="Plan de la journée">';
+  svg+='<polyline fill="none" stroke="var(--ink)" stroke-width="3" stroke-dasharray="8 7" opacity=".45" points="'+
+       pts.map(function(p){return p[0].toFixed(1)+","+p[1].toFixed(1);}).join(" ")+'"/>';
+  stops.forEach(function(s,i){
+    var moved=Math.abs(pts[i][0]-truePts[i][0])+Math.abs(pts[i][1]-truePts[i][1]);
+    if(moved>6) svg+='<line x1="'+truePts[i][0].toFixed(1)+'" y1="'+truePts[i][1].toFixed(1)+'" x2="'+
+      pts[i][0].toFixed(1)+'" y2="'+pts[i][1].toFixed(1)+'" stroke="var(--ink)" stroke-width="1.2" opacity=".55"/>'+
+      '<circle cx="'+truePts[i][0].toFixed(1)+'" cy="'+truePts[i][1].toFixed(1)+'" r="2.5" fill="var(--ink)" opacity=".55"/>';
+  });
+  stops.forEach(function(s,i){
+    var c=s.k==="mur"?"var(--aller)":s.k==="art"?"var(--art)":
+          s.k==="soir"?"var(--retour)":s.k==="table"?"var(--ink)":"#5A6068";
+    svg+='<g class="pin" data-ev="'+dayId+"-"+s.no+'" tabindex="0" role="button" aria-label="'+esc(s.n)+'">'+
+      '<circle class="b" cx="'+pts[i][0].toFixed(1)+'" cy="'+pts[i][1].toFixed(1)+'" r="14" fill="'+c+'" stroke="#fff" stroke-width="3"/>'+
+      '<text x="'+pts[i][0].toFixed(1)+'" y="'+(pts[i][1]+5).toFixed(1)+'" text-anchor="middle" fill="#fff" '+
+      'style="font-family:var(--mono);font-size:14px;font-weight:700;pointer-events:none">'+s.no+'</text></g>';
+  });
+  var mpp=156543.03392*Math.cos((la0+la1)/2*Math.PI/180)/Math.pow(2,z);
+  var steps=[100,200,500,1000,2000,5000,10000,20000,50000], step=steps[0];
+  for(var i2=0;i2<steps.length;i2++){ if(steps[i2]/mpp<=MW*0.28) step=steps[i2]; }
+  var w=step/mpp;
+  svg+='<g><rect x="12" y="'+(MH-36)+'" width="'+(w+72).toFixed(0)+'" height="24" fill="var(--surface)" opacity=".85"/>'+
+       '<line x1="22" y1="'+(MH-21)+'" x2="'+(22+w).toFixed(1)+'" y2="'+(MH-21)+'" stroke="var(--ink)" stroke-width="3"/>'+
+       '<line x1="22" y1="'+(MH-27)+'" x2="22" y2="'+(MH-15)+'" stroke="var(--ink)" stroke-width="3"/>'+
+       '<line x1="'+(22+w).toFixed(1)+'" y1="'+(MH-27)+'" x2="'+(22+w).toFixed(1)+'" y2="'+(MH-15)+'" stroke="var(--ink)" stroke-width="3"/>'+
+       '<text x="'+(30+w).toFixed(1)+'" y="'+(MH-16)+'" fill="var(--ink)" style="font-family:var(--mono);font-size:13px">'+
+       (step<1000?step+" m":(step/1000)+" km")+'</text></g></svg>';
+
+  return '<div class="canvas"><div class="tiles">'+tiles+'</div>'+svg+'</div>';
+}
+
+/* ---------------- rendu ---------------- */
+var host=document.getElementById("days"), menu=document.getElementById("daymenu");
+var today=ymd(new Date()), startD=new Date(START+"T12:00:00"), todayId=null;
+
+DAYS.forEach(function(day,idx){
+  var d=new Date(startD.getTime()+idx*86400000);
+  day.date=ymd(d);
+  day.label=JOURS[d.getDay()].slice(0,3)+" "+d.getDate()+"/"+String(d.getMonth()+1).padStart(2,"0");
+  day.longDate=JOURS[d.getDay()]+" "+d.getDate()+" "+MOIS[d.getMonth()];
+  if(day.date===today) todayId=day.id;
+
+  var mapStops=[], n=0;
+  day.s.forEach(function(s){ if(s.ll){ n++; s.no=n; mapStops.push(s); } });
+
+  var art=document.createElement("article");
+  art.className="day "+(day.dir==="stay"?"stay":day.dir==="retour"?"ret":"");
+  art.id=day.id;
+
+  var h='<div class="dhead"><div class="dtop"><span class="dnum">'+day.id.toUpperCase()+'</span>'+
+    '<span class="ddate">'+day.longDate+'</span>'+
+    (day.date===today?'<span class="dtoday">aujourd\'hui</span>':'')+'</div>'+
+    '<p class="dmeta" style="margin-top:6px">'+esc(day.km)+' · '+esc(day.dr)+' · '+esc(day.hotel)+'</p>'+
+    '<h3>'+day.t.replace("→",'<span class="ar">→</span>')+'</h3>'+
+    '<p class="dnote">'+day.note+'</p>'+
+    (day.resa?'<p class="dresa">'+day.resa+'</p>':'');
+
+  var road=dirUrl(day.s.filter(function(s){return s.a;}), day.dir==="stay"?"walking":"driving");
+  if(road) h+='<a class="gbtn" target="_blank" rel="noopener" href="'+road+'">'+PIN+'Itinéraire du jour</a>';
+  h+='</div><div class="dbody"><div class="mapcol">'+bigMap(mapStops,day.id)+
+     '<p class="mapcap">fond de carte © OpenStreetMap, CARTO</p></div><ul class="tl">';
+
+  var prevM=null;
+  day.s.forEach(function(s){
+    var walk="";
+    if(s.ll && prevM){
+      var dd=dist(prevM.ll,s.ll);
+      if(dd<4) walk='<p class="walk">↳ '+Math.max(3,Math.round(dd/4.6*60))+' min à pied depuis l\'étape précédente</p>';
+      else if(dd<25) walk='<p class="walk">↳ '+Math.round(dd/22*60)+' min en transport depuis l\'étape précédente</p>';
+    }
+    if(s.ll) prevM=s;
+    var ph=s.p&&PHOTOS[s.p];
+    var slim=(s.k==="route"||s.k==="dodo");
+    h+='<li class="ev k-'+s.k+(slim?" trip":"")+'"'+(s.no?' id="'+day.id+'-'+s.no+'"':'')+'>'+
+       '<div class="evt">'+s.t+'</div><div class="evc">'+
+       (ph?'<figure class="evfig"><img loading="lazy" src="'+esc(ph.url)+'" alt="'+esc(s.n)+'"><figcaption>'+esc(ph.from)+'</figcaption></figure>':'')+
+       '<div class="evb">'+
+       (slim?'':'<div class="evk"><span class="badge">'+LBL[s.k]+'</span>'+(s.u?'<span class="dur">'+esc(s.u)+'</span>':'')+'</div>')+
+       '<h4>'+(s.no?'<span class="no">'+s.no+'</span>':'')+esc(s.n)+'</h4>'+
+       (s.d?'<p class="evd">'+s.d+'</p>':'')+
+       (s.a?'<a class="evl" target="_blank" rel="noopener" href="'+gq(s.a)+'">'+PIN+'<span>'+esc(s.a)+'</span></a>':'')+
+       walk+'</div></div></li>';
+  });
+  h+='</ul></div>';
+
+  art.innerHTML=h;
+  host.appendChild(art);
+
+  Array.prototype.forEach.call(art.querySelectorAll(".pin"),function(p){
+    function go(){
+      var el=document.getElementById(p.dataset.ev);
+      Array.prototype.forEach.call(art.querySelectorAll(".ev"),function(e){ e.classList.remove("on"); });
+      Array.prototype.forEach.call(art.querySelectorAll(".pin"),function(q){ q.classList.toggle("on",q===p); });
+      if(el){ el.scrollIntoView({behavior:"smooth",block:"center"}); el.classList.add("on"); }
+    }
+    p.addEventListener("click",go);
+    p.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } });
+  });
+  Array.prototype.forEach.call(art.querySelectorAll(".ev[id]"),function(ev){
+    ev.addEventListener("click",function(e){
+      if(e.target.closest("a")) return;
+      Array.prototype.forEach.call(art.querySelectorAll(".ev"),function(x){ x.classList.remove("on"); });
+      ev.classList.add("on");
+      Array.prototype.forEach.call(art.querySelectorAll(".pin"),function(p){ p.classList.toggle("on",p.dataset.ev===ev.id); });
+    });
+  });
+});
+
+/* ---------------- menu ---------------- */
+var boucle=document.getElementById("boucle"), prog=document.getElementById("programme");
+function show(id,scroll){
+  var showAll = (id==="all");
+  boucle.classList.toggle("hide", !(showAll || id==="boucle"));
+  prog.classList.toggle("hide", id==="boucle");
+  Array.prototype.forEach.call(document.querySelectorAll(".day"),function(d){
+    d.classList.toggle("hide", !(showAll || d.id===id));
+  });
+  Array.prototype.forEach.call(menu.children,function(b){ b.classList.toggle("on", b.dataset.d===id); });
+  if(scroll){
+    var el = id==="all" ? boucle : document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+}
+function mk(id,label,sub,isToday){
+  var b=document.createElement("button");
+  b.type="button"; b.dataset.d=id;
+  b.innerHTML="<b>"+label+"</b>"+(sub?" "+sub:"");
+  if(isToday) b.classList.add("today");
+  b.addEventListener("click",function(){ show(id,true); });
+  menu.appendChild(b);
+  return b;
+}
+mk("boucle","La boucle","",false);
+DAYS.forEach(function(d){ mk(d.id, d.id.toUpperCase(), d.label, d.date===today); });
+mk("all","Tout","",false);
+
+/* affichage par défaut : le jour en cours ; hors période, la boucle */
+show(todayId || "boucle", false);
+
+/* ---------------- carte générale ---------------- */
+Array.prototype.forEach.call(document.querySelectorAll(".mn"),function(node){
+  function go(){ show(node.dataset.go,true); }
+  node.addEventListener("click",go);
+  node.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } });
+});
+})();
+</script>
+</body>
+</html>
