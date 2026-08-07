@@ -126,8 +126,8 @@ hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
 .gbtn svg{width:13px; height:13px; flex:none}
 
 .dbody{display:grid; grid-template-columns:1fr; gap:18px; margin-top:14px}
-@media(min-width:960px){
-  .dbody{grid-template-columns:minmax(0,1fr) 430px; gap:30px; align-items:start}
+@media(min-width:1120px){
+  .dbody{grid-template-columns:minmax(0,1fr) 400px; gap:30px; align-items:start}
   .mapcol{position:sticky; top:100px; order:2}
   .tl{order:1}
 }
@@ -175,30 +175,18 @@ hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
 .evl:hover{color:var(--aller)}
 .evl svg{width:12px; height:12px; flex:none; margin-top:1px}
 .walk{font-family:var(--mono); font-size:9.5px; color:var(--ink3); margin-top:8px; letter-spacing:.03em}
-.ev.trip{padding:12px 0; border-bottom:1px dashed var(--rule)}
-.ev.trip .evt{background:none; color:var(--ink2); padding:0; margin-bottom:6px}
-.ev.trip .evfig img{aspect-ratio:21/9}
-.ev.trip .evb h4{font-family:var(--body); font-weight:700; font-size:16px; letter-spacing:0; margin:0}
-.ev.trip .evd{font-size:14px; margin-top:4px}
 .ev.on{background:var(--surface2); box-shadow:0 0 0 10px var(--surface2)}
 
-/* à partir du format tablette : vignette à gauche, texte à droite */
-@media(min-width:600px){
-  .ev{display:grid; grid-template-columns:54px minmax(0,1fr); gap:14px; padding:14px 0}
+/* à partir du format tablette : vignette à gauche, texte à droite.
+   Toutes les vignettes ont exactement la même taille, quel que soit le type d'étape. */
+@media(min-width:720px){
+  .ev{display:grid; grid-template-columns:56px minmax(0,1fr); gap:16px; padding:16px 0}
   .evt{margin-bottom:0; align-self:start}
-  .evc{display:flex; gap:16px}
-  .evfig{flex:0 0 190px; margin:0}
-  .evfig img{width:190px; height:142px; aspect-ratio:auto}
-  .ev.trip .evfig{flex-basis:120px}
-  .ev.trip .evfig img{width:120px; height:78px; aspect-ratio:auto}
-  .evb h4{font-size:18px; margin-top:6px}
-  .evb{flex:1}
-}
-/* écrans intermédiaires : la colonne texte redevient étroite à cause de la carte */
-@media(min-width:960px) and (max-width:1140px){
-  .evfig{flex-basis:150px}
-  .evfig img{width:150px; height:112px}
-  .evb h4{font-size:17px}
+  .evc{display:flex; gap:18px}
+  .evfig{flex:0 0 260px; margin:0}
+  .evfig img{width:260px; height:180px; aspect-ratio:auto}
+  .evb{flex:1; min-width:0}
+  .evb h4{font-size:19px; margin-top:6px}
 }
 .day.hide,#boucle.hide,#programme.hide{display:none}
 #programme{padding-top:0}
@@ -239,7 +227,7 @@ hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
           <rect x="434" y="112" width="6" height="38"/><rect x="456" y="112" width="6" height="38"/>
           <rect x="478" y="112" width="6" height="38"/><rect x="494" y="112" width="6" height="38"/>
           <rect x="446" y="126" width="22" height="24"/>
-          <rect x="502" y="118" width="34" height="4"/>
+          <rect x="502" y="118" width="34" height="4"/><rect x="532" y="118" width="5" height="32"/>
           <!-- BERLIN -->
           <rect x="552" y="124" width="26" height="26"/>
           <polygon points="595,150 601,150 600,72 596,72"/>
@@ -248,10 +236,10 @@ hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
           <polygon points="586,150 610,150 604,138 592,138"/>
           <!-- DESSAU -->
           <rect x="701" y="110" width="60" height="40"/>
-          <!-- BAMBERG -->
-          <rect x="842" y="126" width="44" height="14"/>
-          <rect x="846" y="100" width="36" height="26"/><polygon points="843,100 864,84 885,100"/>
-          <rect x="859" y="86" width="10" height="14"/><polygon points="857,86 864,68 871,86"/>
+          <!-- BAMBERG : l'hôtel de ville posé sur ses arches, pieds dans la rivière -->
+          <path fill-rule="evenodd" d="M842,130 H886 V150 H842 Z M848,150 a7,7 0 0 1 14,0 Z M866,150 a7,7 0 0 1 14,0 Z"/>
+          <rect x="846" y="102" width="36" height="28"/><polygon points="843,102 864,86 885,102"/>
+          <rect x="859" y="74" width="10" height="28"/><polygon points="857,74 864,56 871,74"/>
           <!-- SPIRE -->
           <rect x="977" y="114" width="40" height="36"/>
           <path d="M985,114 a12,12 0 0 1 24,0 z"/>
@@ -267,14 +255,11 @@ hr.rule{border:0; border-top:2px solid var(--ink); margin:10px 0 0}
           <line x1="716" y1="110" x2="716" y2="150"/><line x1="731" y1="110" x2="731" y2="150"/>
           <line x1="746" y1="110" x2="746" y2="150"/>
         </g>
-        <g stroke="#C3C9D1" stroke-width="2.5" fill="none">
-          <path d="M846,140 a9,9 0 0 1 18,0"/><path d="M866,140 a9,9 0 0 1 18,0"/>
-        </g>
-        <line x1="20" y1="152" x2="664" y2="152" stroke="#F0654A" stroke-width="3" stroke-dasharray="13 8"/>
-        <line x1="664" y1="152" x2="1180" y2="152" stroke="#7FA0F5" stroke-width="3" stroke-dasharray="13 8"/>
+        <line x1="20" y1="150" x2="664" y2="150" stroke="#F0654A" stroke-width="3" stroke-dasharray="13 8"/>
+        <line x1="664" y1="150" x2="1180" y2="150" stroke="#7FA0F5" stroke-width="3" stroke-dasharray="13 8"/>
         <g fill="#F0654A">
-          <path d="M116,144 l4,-7 h14 l4,7 z"/><rect x="112" y="143" width="30" height="7"/>
-          <circle cx="120" cy="152" r="3.5"/><circle cx="134" cy="152" r="3.5"/>
+          <path d="M116,140 l4,-7 h14 l4,7 z"/><rect x="112" y="139" width="30" height="8"/>
+          <circle cx="120" cy="147" r="3.5"/><circle cx="134" cy="147" r="3.5"/>
         </g>
         <g text-anchor="middle">
           <text x="66" y="180">PARIS</text><text x="199" y="180">COLOGNE</text>
@@ -992,12 +977,11 @@ DAYS.forEach(function(day,idx){
     }
     if(s.ll) prevM=s;
     var ph=s.p&&PHOTOS[s.p];
-    var slim=(s.k==="route"||s.k==="dodo");
-    h+='<li class="ev k-'+s.k+(slim?" trip":"")+'"'+(s.no?' id="'+day.id+'-'+s.no+'"':'')+'>'+
+    h+='<li class="ev k-'+s.k+'"'+(s.no?' id="'+day.id+'-'+s.no+'"':'')+'>'+
        '<div class="evt">'+s.t+'</div><div class="evc">'+
        (ph?'<figure class="evfig"><img loading="lazy" src="'+esc(ph.url)+'" alt="'+esc(s.n)+'"><figcaption>'+esc(ph.from)+'</figcaption></figure>':'')+
        '<div class="evb">'+
-       (slim?'':'<div class="evk"><span class="badge">'+LBL[s.k]+'</span>'+(s.u?'<span class="dur">'+esc(s.u)+'</span>':'')+'</div>')+
+       '<div class="evk"><span class="badge">'+LBL[s.k]+'</span>'+(s.u?'<span class="dur">'+esc(s.u)+'</span>':'')+'</div>'+
        '<h4>'+(s.no?'<span class="no">'+s.no+'</span>':'')+esc(s.n)+'</h4>'+
        (s.d?'<p class="evd">'+s.d+'</p>':'')+
        (s.a?'<a class="evl" target="_blank" rel="noopener" href="'+gq(s.a)+'">'+PIN+'<span>'+esc(s.a)+'</span></a>':'')+
